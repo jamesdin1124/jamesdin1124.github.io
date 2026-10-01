@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jhao-Jhuang Ding, MD — Pediatric Nephrology &amp; Clinical AI</title>
+<meta name="description" content="Jhao-Jhuang Ding (丁肇壯), MD — pediatric nephrologist at Chang Gung Memorial Hospital, Linkou, and PhD student in Artificial Intelligence at Chang Gung University.">
+<style>
+  :root{
+    --ink:#16202b; --ink-soft:#4a5b6d; --ink-faint:#7d8b9a;
+    --bg:#ffffff; --bg-soft:#f4f7fa; --line:#dfe6ed;
+    --accent:#0f6fa8; --accent-soft:#e3f0f8;
+    --warn-bg:#fff6dc; --warn-line:#e8c766; --warn-ink:#7a5a05;
+    --max:980px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%}
+  a{color:var(--accent)}
+  .wrap{max-width:var(--max); margin:0 auto; padding-inline:20px}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:20; background:var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; gap:18px; min-height:58px; flex-wrap:wrap}
+  nav .brand{font-weight:700; letter-spacing:-.01em; margin-right:auto}
+  nav a{color:var(--ink-soft); text-decoration:none; font-size:14.5px; padding:6px 2px; border-bottom:2px solid transparent}
+  nav a:hover{color:var(--accent); border-bottom-color:var(--accent)}
+
+  /* ---------- hero ---------- */
+  header{padding:56px 0 44px; border-bottom:1px solid var(--line)}
+  .hero{display:grid; grid-template-columns:150px 1fr; gap:32px; align-items:center}
+  .photo{
+    width:150px; height:150px; border-radius:50%; object-fit:cover; object-position:center;
+    background:var(--accent-soft); border:1px solid var(--line); display:block;
+  }
+  h1{font-size:clamp(26px,4.4vw,38px); line-height:1.2; margin:0 0 4px; letter-spacing:-.02em}
+  h1 .cn{font-size:.62em; font-weight:600; color:var(--ink-soft); margin-left:10px}
+  .role{font-size:17px; color:var(--ink-soft); margin:0 0 14px}
+  .meta{display:flex; flex-wrap:wrap; gap:8px}
+  .tag{
+    font-size:13px; background:var(--bg-soft); border:1px solid var(--line);
+    padding:4px 11px; border-radius:999px; color:var(--ink-soft);
+  }
+
+  /* ---------- sections ---------- */
+  section{padding:46px 0; border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  h2{
+    font-size:13px; text-transform:uppercase; letter-spacing:.13em;
+    color:var(--accent); margin:0 0 20px; font-weight:700;
+  }
+  h3{font-size:19px; margin:0 0 6px; letter-spacing:-.01em}
+  p{margin:0 0 14px; color:var(--ink-soft); max-width:68ch}
+  p.lead{color:var(--ink); font-size:17.5px}
+
+  h3.sub{font-size:14px; letter-spacing:.02em; color:var(--ink); margin:26px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--accent-soft)}
+  h3.sub:first-of-type{margin-top:0}
+  .chips{display:flex; flex-wrap:wrap; gap:8px}
+  .chips span{font-size:13.5px; background:var(--bg-soft); border:1px solid var(--line); padding:6px 12px; border-radius:8px; color:var(--ink-soft)}
+  ol.pubs{margin:0; padding-left:20px}
+  ol.pubs li{margin-bottom:11px; font-size:14.5px; color:var(--ink-soft); line-height:1.55}
+  ol.pubs b{color:var(--ink)}
+  .item{padding:16px 0; border-top:1px solid var(--line)}
+  .item:first-of-type{border-top:0; padding-top:0}
+  .when{font-size:13.5px; color:var(--ink-faint); font-variant-numeric:tabular-nums}
+  .org{font-size:14.5px; color:var(--ink-soft); margin:2px 0 0}
+
+  /* ---------- research ---------- */
+  .feature{background:var(--bg-soft); border:1px solid var(--line); border-radius:14px; padding:24px; margin-bottom:22px}
+  .badge{display:inline-block; font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+         color:#fff; background:var(--accent); padding:3px 9px; border-radius:5px; margin-bottom:10px}
+  .qa{display:grid; gap:14px; margin-top:18px}
+  .qa div{border-left:3px solid var(--accent); padding-left:14px}
+  .qa b{display:block; font-size:12.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--accent); margin-bottom:3px}
+  .qa span{color:var(--ink-soft); font-size:15px}
+  .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:20px}
+  .stats div{background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px}
+  .stats b{display:block; font-size:24px; color:var(--accent); letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+  .stats span{display:block; font-size:12.5px; color:var(--ink-soft); line-height:1.45; margin-top:4px}
+  figure{margin:22px 0 0}
+  figcaption{font-size:13px; color:var(--ink-faint); margin-top:8px; text-align:center}
+  .others{display:grid; gap:12px}
+  .others div{padding-left:16px; border-left:2px solid var(--line)}
+  .others b{display:block; font-size:15.5px; color:var(--ink)}
+  .others span{font-size:14.5px; color:var(--ink-soft)}
+
+  /* ---------- contact ---------- */
+  .links{display:flex; flex-wrap:wrap; gap:10px; margin-top:4px}
+  .links a{
+    display:inline-block; text-decoration:none; font-size:14.5px; font-weight:600;
+    border:1px solid var(--line); background:var(--bg-soft); color:var(--accent);
+    padding:9px 16px; border-radius:9px;
+  }
+  .links a:hover{border-color:var(--accent); background:var(--accent-soft)}
+
+
+  /* ---------- interactive demo ---------- */
+  #demo .panel{background:var(--bg-soft); border:1px solid var(--line); border-radius:14px; padding:22px}
+  .ecgbox{background:#fff; border:1px solid var(--line); border-radius:10px; padding:6px 4px}
+  .ctl{display:grid; grid-template-columns:1fr auto; gap:16px; align-items:end; margin-top:18px}
+  .ctl label{display:block; font-size:12.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--accent); font-weight:700; margin-bottom:8px}
+  input[type=range]{width:100%; accent-color:var(--accent); height:26px}
+  .kread{text-align:right; min-width:132px}
+  .kval{font-size:30px; font-weight:700; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1}
+  .kband{font-size:12.5px; font-weight:700; margin-top:4px}
+  .scale{display:flex; font-size:10.5px; color:var(--ink-faint); margin-top:4px; justify-content:space-between}
+  .signs{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px}
+  .signs div{background:#fff; border:1px solid var(--line); border-radius:9px; padding:11px 13px}
+  .signs b{display:block; font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint)}
+  .signs span{display:block; font-size:15px; font-weight:600; margin-top:3px}
+  .btn{font:inherit; font-size:14.5px; font-weight:600; cursor:pointer; border:1px solid var(--accent);
+       background:var(--accent); color:#fff; padding:9px 18px; border-radius:9px}
+  .btn.ghost{background:#fff; color:var(--accent)}
+  .btnrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+  .quizbox{margin-top:16px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:16px}
+  .quizbox p{margin:0 0 10px; font-size:14.5px}
+  .verdict{font-size:15px; font-weight:600; margin-top:10px}
+  .note{font-size:12.5px; color:var(--ink-faint); margin-top:14px; line-height:1.55}
+  @media (max-width:640px){
+    .signs{grid-template-columns:1fr}
+    .ctl{grid-template-columns:1fr}
+    .kread{text-align:left}
+  }
+
+  footer{padding:28px 0 44px; font-size:13.5px; color:var(--ink-faint)}
+
+  /* ---------- draft markers (REMOVE BEFORE PUBLISHING) ---------- */
+  .todo{
+    display:block; background:var(--warn-bg); border:1px dashed var(--warn-line); color:var(--warn-ink);
+    font-size:13.5px; padding:9px 13px; border-radius:8px; margin:10px 0;
+  }
+  .todo b{color:var(--warn-ink)}
+
+  @media (max-width:640px){
+    .stats{grid-template-columns:1fr}
+    .hero{grid-template-columns:1fr; gap:20px; text-align:left}
+    .photo{width:112px; font-size:32px}
+    header{padding:36px 0 30px}
+    section{padding:34px 0}
+    nav .wrap{min-height:52px; gap:14px}
+    nav .brand{width:100%; margin-right:0}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">Jhao-Jhuang Ding</span>
+    <a href="#about">About</a>
+    <a href="#experience">Education &amp; Experience</a>
+    <a href="#research">Research</a>
+    <a href="#demo">Try it</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap hero">
+    <img class="photo" src="photo.jpg" alt="Portrait of Jhao-Jhuang Ding" width="720" height="720">
+    <div>
+      <h1>Jhao-Jhuang Ding, MD<span class="cn">丁肇壯</span></h1>
+      <p class="role">Pediatric Nephrologist · PhD Student, Artificial Intelligence</p>
+      <div class="meta">
+        <span class="tag">Student ID: D1400701</span>
+        <span class="tag">Chang Gung Memorial Hospital, Linkou</span>
+        <span class="tag">Chang Gung University</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <p class="lead">I am a pediatric nephrologist at Chang Gung Memorial Hospital, Linkou, and a PhD student in the Division of Artificial Intelligence, Graduate Institute of Clinical Medical Sciences, Chang Gung University.</p>
+    <p>My clinical work centers on children with kidney disease and electrolyte disorders. My research asks a narrower question: can routinely collected clinical signals — an electrocardiogram, an ultrasound image, a sequence of bedside laboratory values — be read by a model to surface information a clinician cannot see directly, early enough to change a decision?</p>
+    <p><b>Research interests:</b> AI-augmented medical education &middot; inherited kidney diseases &middot; acid-base and electrolyte disorders &middot; interventional nephrology &middot; pediatric critical care nephrology &middot; evidence-based medicine.</p>
+    <p>I care most about the part that comes after a good AUC: whether a model is calibrated, whether it holds up outside the hospital that built it, and whether anyone's care actually improves because it exists.</p>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <h2>Education &amp; Experience</h2>
+
+    <h3 class="sub">Education</h3>
+    <div class="item">
+      <h3>MD, Medicine</h3>
+      <p class="org">National Defense Medical University, Taipei, Taiwan</p>
+      <p class="when">2003 – 2010</p>
+    </div>
+    <div class="item">
+      <h3>PhD Student, Medical Artificial Intelligence</h3>
+      <p class="org">Graduate Institute of Clinical Medical Sciences, Division of Artificial Intelligence,<br>College of Medicine, Chang Gung University, Taoyuan, Taiwan</p>
+      <p class="when">2025 – present</p>
+    </div>
+
+    <h3 class="sub">Clinical &amp; Academic Positions</h3>
+    <div class="item">
+      <h3>Attending Physician, Division of Pediatric Nephrology</h3>
+      <p class="org">Department of Pediatrics, Linkou Chang Gung Memorial Hospital, Taoyuan, Taiwan</p>
+      <p class="when">September 2026 – present</p>
+    </div>
+    <div class="item">
+      <h3>Attending Physician, Division of Nephrology</h3>
+      <p class="org">Tri-Service General Hospital, Taipei, Taiwan</p>
+      <p class="when">2021 – August 2026</p>
+    </div>
+    <div class="item">
+      <h3>Clinical Fellow, Division of Nephrology</h3>
+      <p class="org">Chang Gung Memorial Hospital, Taoyuan, Taiwan</p>
+      <p class="when">2017 – 2019</p>
+    </div>
+    <div class="item">
+      <h3>Chief Resident, Department of Pediatrics</h3>
+      <p class="org">Tri-Service General Hospital, Taipei, Taiwan</p>
+      <p class="when">2016 – 2017</p>
+    </div>
+    <div class="item">
+      <h3>Resident, Department of Pediatrics</h3>
+      <p class="org">Tri-Service General Hospital, Taipei, Taiwan</p>
+      <p class="when">2013 – 2016</p>
+    </div>
+
+    <h3 class="sub">Board Certification</h3>
+    <div class="chips">
+      <span>Medical License, Taiwan &middot; 2010</span>
+      <span>Taiwan Board of Pediatrics &middot; 2016</span>
+      <span>Certified EBM Instructor, TEBMA &middot; 2018</span>
+      <span>Taiwan Board of Nephrology &middot; 2019</span>
+    </div>
+
+    <h3 class="sub">Awards</h3>
+    <div class="item">
+      <h3>Excellent Oral Presentation Award</h3>
+      <p class="org">Taiwan Society of Nephrology &middot; Taiwan Society of Pediatric Nephrology</p>
+      <p class="when">2019</p>
+    </div>
+
+    <h3 class="sub">Teaching</h3>
+    <p>Leader of the Evidence-Based Medicine teaching group, and facilitator for the basic and advanced evidence-based medicine workshops and the APLS/PALS course at Tri-Service General Hospital.</p>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <h2>Research</h2>
+
+    <div class="feature">
+      <span class="badge">Lead project</span>
+      <h3>AI-enabled electrocardiography for monitoring serum potassium dynamics in severe hypokalemia</h3>
+      <p class="org">First author · <em>American Journal of Kidney Diseases</em> · Articles in Press, August 2026 ·
+        <a href="https://www.ajkd.org/article/S0272-6386(26)01059-0/fulltext" target="_blank" rel="noopener">read the article</a></p>
+
+      <div class="qa">
+        <div><b>The problem</b><span>Severe hypokalemia is treated by giving potassium and then checking it again. Each check means another blood draw and another wait. Potassium can also overshoot: correct too fast and the patient rebounds into hyperkalemia. The gap between blood tests is where that happens, unseen.</span></div>
+        <div><b>What was already known</b><span>A deep learning model can read a 12-lead ECG and estimate serum potassium at a single moment. Whether it could <em>track</em> potassium as it moves during treatment had not been tested.</span></div>
+        <div><b>What we did</b><span>A multicenter retrospective cohort at three teaching hospitals in Taiwan: 191 adults with severe hypokalemia (serum K⁺ &le; 2.5 mmol/L) and 466 paired ECG and laboratory measurements taken during potassium supplementation. Agreement was analyzed with linear mixed-effects models and repeated-measures correlation, not simple pooled correlation, because measurements repeat within the same patient.</span></div>
+        <div><b>My role</b><span>I co-originated the research question and study design, contributed to analysis and interpretation, and wrote the manuscript as first author.</span></div>
+      </div>
+
+      <div class="stats">
+        <div><b>0.847</b><span>within-patient correlation between ECG-estimated and laboratory potassium (95% CI 0.81–0.88)</span></div>
+        <div><b>52.5 min</b><span>average lead time of the ECG estimate over the laboratory result</span></div>
+        <div><b>0.920</b><span>AUC for detecting K⁺ &lt; 3.5 mmol/L (95% CI 0.863–0.961)</span></div>
+      </div>
+
+      <div class="qa" style="margin-top:18px">
+        <div><b>The finding that mattered most</b><span>Accuracy depended on <em>why</em> the potassium was low. When hypokalemia came from a sudden shift of potassium into cells, the ECG estimate tracked the laboratory value almost one-to-one (AUC 0.952). When it came from a chronic whole-body deficit, the signal was weaker and flatter (AUC 0.870). The same model is not equally trustworthy in two patients with the same number on the chart.</span></div>
+        <div><b>Why that is useful</b><span>Patients with an acute shift corrected about three times faster (0.121 vs 0.039 mmol/L per hour) — the group that moves fastest is the group the ECG reads best. In two patients with thyrotoxic periodic paralysis, the ECG flagged rebound hyperkalemia roughly 42 minutes before the laboratory confirmed it.</span></div>
+        <div><b>What it does not show</b><span>This was retrospective, mostly from one center, and in an Asian population. It did not test whether patient outcomes improve. The ECG estimate is a monitoring adjunct between blood draws, not a replacement for them.</span></div>
+      </div>
+
+      <figure>
+        <svg viewBox="0 0 760 250" width="100%" role="img" aria-labelledby="dtitle">
+          <title id="dtitle">During potassium replacement, the ECG estimate rises alongside the laboratory value and arrives about 52 minutes earlier</title>
+          <g font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+            <line x1="74" y1="196" x2="724" y2="196" stroke="#cfdae4" stroke-width="1.4"/>
+            <line x1="74" y1="40" x2="74" y2="196" stroke="#cfdae4" stroke-width="1.4"/>
+            <text x="30" y="52" font-size="11.5" fill="#7d8b9a">4.0</text>
+            <text x="30" y="128" font-size="11.5" fill="#7d8b9a">3.0</text>
+            <text x="30" y="200" font-size="11.5" fill="#7d8b9a">2.0</text>
+            <text x="20" y="26" font-size="12" font-weight="700" fill="#16202b">K⁺ (mmol/L)</text>
+            <text x="399" y="222" text-anchor="middle" font-size="11.5" fill="#7d8b9a">hours after starting potassium replacement</text>
+            <text x="74" y="212" text-anchor="middle" font-size="11.5" fill="#7d8b9a">0</text>
+            <text x="291" y="212" text-anchor="middle" font-size="11.5" fill="#7d8b9a">8</text>
+            <text x="508" y="212" text-anchor="middle" font-size="11.5" fill="#7d8b9a">16</text>
+            <text x="724" y="212" text-anchor="middle" font-size="11.5" fill="#7d8b9a">24</text>
+            <line x1="74" y1="98" x2="724" y2="98" stroke="#e5ebf1" stroke-width="1" stroke-dasharray="4 4"/>
+            <text x="730" y="96" font-size="10.5" fill="#9fb1c2">3.5</text>
+
+            <polyline points="110,178 180,160 250,142 330,124 420,112 520,104 620,99 700,96"
+                      fill="none" stroke="#16202b" stroke-width="2.2"/>
+            <g fill="#16202b">
+              <circle cx="110" cy="178" r="4"/><circle cx="250" cy="142" r="4"/>
+              <circle cx="420" cy="112" r="4"/><circle cx="620" cy="99" r="4"/>
+            </g>
+            <polyline points="88,172 158,154 228,137 308,120 398,109 498,102 598,97 690,95"
+                      fill="none" stroke="#0f6fa8" stroke-width="2.2" stroke-dasharray="7 4"/>
+            <g fill="#0f6fa8">
+              <rect x="84" y="168" width="8" height="8" rx="1.5"/><rect x="224" y="133" width="8" height="8" rx="1.5"/>
+              <rect x="394" y="105" width="8" height="8" rx="1.5"/><rect x="594" y="93" width="8" height="8" rx="1.5"/>
+            </g>
+
+            <g stroke="#e0824a" stroke-width="1.5">
+              <line x1="228" y1="137" x2="250" y2="142"/>
+            </g>
+            <rect x="196" y="58" width="150" height="40" rx="7" fill="#fff5ee" stroke="#f0c7a8"/>
+            <text x="271" y="74" text-anchor="middle" font-size="11.5" font-weight="700" fill="#b25d1f">52.5 min earlier</text>
+            <text x="271" y="89" text-anchor="middle" font-size="11" fill="#b25d1f">ECG estimate before the lab</text>
+            <line x1="252" y1="98" x2="240" y2="130" stroke="#f0c7a8" stroke-width="1.3"/>
+
+            <g font-size="12">
+              <rect x="470" y="40" width="12" height="3" fill="#16202b"/>
+              <text x="492" y="45" fill="#4a5b6d">laboratory potassium</text>
+              <rect x="470" y="60" width="12" height="3" fill="#0f6fa8"/>
+              <text x="492" y="65" fill="#4a5b6d">ECG-estimated potassium</text>
+            </g>
+          </g>
+        </svg>
+        <figcaption>Schematic, not study data. The two curves move together; the blue one simply gets there first.</figcaption>
+      </figure>
+    </div>
+
+    <h3 style="margin-bottom:14px">Other work</h3>
+    <div class="others">
+      <div><b>AI-ECG estimation of serum calcium before parathyroidectomy</b><span>Co-investigator. Extending waveform-based electrolyte estimation to a surgical decision point.</span></div>
+      <div><b>Automated interpretation of pediatric kidney ultrasound</b><span>Co-investigator. Image-based assessment of kidney structure in children.</span></div>
+      <div><b>Hour-by-hour prediction of serum potassium in pediatric diabetic ketoacidosis</b><span>Principal investigator. A Bayesian hierarchical model built for a small cohort, using informative priors drawn from published studies. In preparation; ethics review pending.</span></div>
+    </div>
+
+    <h3 class="sub" style="margin-top:30px">Selected publications</h3>
+    <ol class="pubs">
+      <li><b>Ding JJ</b>, Lin C, Liao WI, et al. Artificial intelligence-enabled electrocardiography for monitoring serum potassium dynamics in patients with severe hypokalemia. <em>Am J Kidney Dis</em>. 2026. Articles in Press.</li>
+      <li><b>Ding JJ</b>, Hsia SH, Jaing TH, et al. Prognostic factors in children with acute kidney injury requiring continuous renal replacement therapy. <em>Blood Purif</em>. 2024;53(6):511–519.</li>
+      <li>Ho SY, Wang KL, Fan HC, <b>Ding JJ</b>.<sup>&#42;</sup> Dynamics of urine electrolytes in term neonates during the first week of life. <em>J Med Sci</em>. 2024;44(5):216–221.</li>
+      <li><b>Ding JJ</b>, Lin SH, Huang JL, et al. Risk factors for complications of percutaneous ultrasound-guided renal biopsy in children. <em>Pediatr Nephrol</em>. 2020;35:271–278.</li>
+    </ol>
+    <p class="note" style="margin-top:6px"><sup>&#42;</sup>corresponding author</p>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap">
+    <h2>Try it — read potassium off an ECG</h2>
+    <p class="lead">Move the slider. Watch what the trace does. After a few passes you will start to see it before you read the number.</p>
+
+    <div class="panel">
+      <div class="ecgbox">
+        <svg id="ecg" viewBox="0 0 760 210" width="100%" role="img" aria-label="Simulated electrocardiogram that changes with serum potassium">
+          <g id="grid"></g>
+          <path id="trace" fill="none" stroke="#0f6fa8" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round"/>
+          <g id="labels" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="11.5" fill="#9fb1c2"></g>
+        </svg>
+      </div>
+
+      <div class="ctl">
+        <div>
+          <label for="k">Serum potassium</label>
+          <input id="k" type="range" min="1.5" max="7.5" step="0.1" value="4.2">
+          <div class="scale"><span>1.5</span><span>2.5</span><span>3.5</span><span>4.5</span><span>5.5</span><span>6.5</span><span>7.5</span></div>
+        </div>
+        <div class="kread">
+          <div class="kval" id="kval">4.2</div>
+          <div class="kband" id="kband">Normal</div>
+        </div>
+      </div>
+
+      <div class="signs">
+        <div><b>T wave</b><span id="s1">—</span></div>
+        <div><b>U wave</b><span id="s2">—</span></div>
+        <div><b>ST segment</b><span id="s3">—</span></div>
+      </div>
+
+      <div class="btnrow">
+        <button class="btn" id="quiz">Test yourself</button>
+        <button class="btn ghost" id="reset">Back to normal</button>
+      </div>
+
+      <div class="quizbox" id="qbox" hidden>
+        <p id="qtext"><b>A trace appeared. What is the potassium?</b> Move the slider to your answer, then reveal.</p>
+        <button class="btn" id="reveal">Reveal</button>
+        <div class="verdict" id="verdict"></div>
+      </div>
+
+      <p class="note"><b>What this is.</b> A synthetic waveform, not patient data, drawn from the classical ECG changes of potassium disturbance: the T wave flattens then inverts as potassium falls, a U wave emerges, the ST segment sags; at high potassium the T wave becomes tall and narrow and the QRS widens.
+      <br><b>What this is not.</b> The model in our study (ECG12Net, 82 convolutional layers) reads the raw 12-lead waveform. It does not measure T wave height or U waves. This demo shows the physiology a clinician can see — part of why the model works, not how it works.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p>Division of Pediatric Nephrology, Department of Pediatrics<br>
+       Chang Gung Memorial Hospital, Linkou, Taoyuan, Taiwan</p>
+    <div class="links">
+      <a href="mailto:doc31060@cgmh.org.tw">doc31060@cgmh.org.tw</a>
+      <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Ding+JJ" target="_blank" rel="noopener">PubMed</a>
+    </div>
+    <span class="todo"><b>TODO —</b> add ORCID and Google Scholar if you have them. If not, the PubMed link alone is acceptable.</span>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Built with generative AI as a collaborator, then reviewed and revised by hand.<br>
+    Homework #1 · CMD728 Generative AI · Chang Gung University · 2026
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var ps=function(pts,x){ if(x<=pts[0][0])return pts[0][1];
+    for(var i=1;i<pts.length;i++){ if(x<=pts[i][0]){ var a=pts[i-1],b=pts[i];
+      return a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0]); } } return pts[pts.length-1][1]; };
+  var g=function(t,c,w){ return Math.exp(-((t-c)*(t-c))/(2*w*w)); };
+  var cl=function(v){ return v<0?0:v>1?1:v; };
+
+  function par(k){ return {
+    p : ps([[1.5,.050],[4.5,.055],[6.0,.044],[7.5,.010]],k),
+    t : ps([[1.5,-.085],[2.0,-.032],[2.5,.028],[3.0,.072],[3.5,.125],[4.5,.200],[5.5,.330],[6.5,.455],[7.5,.560]],k),
+    tw: ps([[1.5,.092],[3.5,.078],[5.0,.068],[7.5,.038]],k),
+    u : ps([[1.5,.135],[2.0,.115],[2.5,.092],[3.0,.066],[3.5,.040],[4.0,.020],[5.0,.006],[7.5,0]],k),
+    st: ps([[1.5,-.058],[2.5,-.038],[3.0,-.025],[3.5,-.012],[4.2,0],[7.5,.004]],k),
+    qw: ps([[1.5,1],[6.0,1],[7.5,1.8]],k) }; }
+
+  function beat(t,P){
+    var w=.016*P.qw, y=0;
+    y += P.p*g(t,.13,.030);
+    y -= .055*g(t,.233,w*.8);
+    y += 1.00*g(t,.262,w);
+    y -= .160*g(t,.296,w*1.1);
+    y += P.st * cl((t-.300)/.030) * cl((.470-t)/.045);
+    y += P.t*g(t,.500,P.tw);
+    y += P.u*g(t,.700,.052);
+    return y;
+  }
+
+  var X0=22,X1=742,BASE=146,SC=96,BEATS=3,N=820;
+  function path(k){
+    var P=par(k), d="";
+    for(var i=0;i<=N;i++){
+      var f=i/N, x=X0+(X1-X0)*f, t=(f*BEATS)%1;
+      var y=BASE-beat(t,P)*SC;
+      d += (i?"L":"M")+x.toFixed(1)+","+y.toFixed(1);
+    }
+    return d;
+  }
+
+  var grid=document.getElementById("grid"), gd="";
+  for(var gx=X0; gx<=X1; gx+=24) gd+='<line x1="'+gx+'" y1="10" x2="'+gx+'" y2="200" stroke="#f2f0ef" stroke-width="1"/>';
+  for(var gy=14; gy<=198; gy+=24) gd+='<line x1="'+X0+'" y1="'+gy+'" x2="'+X1+'" y2="'+gy+'" stroke="#f2f0ef" stroke-width="1"/>';
+  grid.innerHTML=gd;
+
+  var lab=document.getElementById("labels"), one=(X1-X0)/BEATS;
+  lab.innerHTML=
+    '<text x="'+(X0+one*.13)+'" y="'+(BASE-18)+'" text-anchor="middle">P</text>'+
+    '<text x="'+(X0+one*.262)+'" y="'+(BASE-108)+'" text-anchor="middle">R</text>'+
+    '<text x="'+(X0+one*.50)+'" y="'+(BASE-44)+'" text-anchor="middle">T</text>'+
+    '<text x="'+(X0+one*.70)+'" y="'+(BASE+22)+'" text-anchor="middle">U</text>';
+
+  var band=function(k){
+    if(k<=2.5) return ["Severe hypokalemia","#b3261e"];
+    if(k<=3.0) return ["Moderate hypokalemia","#c2601a"];
+    if(k<3.5)  return ["Mild hypokalemia","#9a7a0e"];
+    if(k<=5.0) return ["Normal","#1d7a4c"];
+    if(k<=6.0) return ["Hyperkalemia","#c2601a"];
+    return ["Severe hyperkalemia","#b3261e"];
+  };
+  var sT=function(k){ return k<2.2?"Inverted":k<3.0?"Flat":k<3.6?"Low":k<=5.2?"Normal":k<=6.3?"Tall":"Tall and peaked"; };
+  var sU=function(k){ return k<2.6?"Prominent":k<3.3?"Visible":k<4.0?"Slight":"Absent"; };
+  var sS=function(k){ return k<2.6?"Clearly depressed":k<3.4?"Depressed":k<4.2?"Slight sag":"Normal"; };
+
+  var trace=document.getElementById("trace"), sl=document.getElementById("k"),
+      kval=document.getElementById("kval"), kband=document.getElementById("kband"),
+      s1=document.getElementById("s1"), s2=document.getElementById("s2"), s3=document.getElementById("s3"),
+      qbox=document.getElementById("qbox"), qtext=document.getElementById("qtext"),
+      verdict=document.getElementById("verdict");
+  var quizK=null;
+
+  function draw(k,hide){
+    trace.setAttribute("d",path(k));
+    var b=band(k);
+    if(hide){ kval.textContent="?"; kval.style.color="var(--ink-faint)"; kband.textContent="hidden"; kband.style.color="var(--ink-faint)";
+              s1.textContent=s2.textContent=s3.textContent="—"; }
+    else{ kval.textContent=k.toFixed(1); kval.style.color=b[1]; kband.textContent=b[0]; kband.style.color=b[1];
+          s1.textContent=sT(k); s2.textContent=sU(k); s3.textContent=sS(k); }
+  }
+
+  sl.addEventListener("input",function(){
+    if(quizK!==null){ kval.textContent=(+sl.value).toFixed(1); kval.style.color="var(--ink)"; kband.textContent="your answer"; kband.style.color="var(--ink-faint)"; }
+    else draw(+sl.value,false);
+  });
+
+  document.getElementById("quiz").addEventListener("click",function(){
+    quizK = Math.round((1.7 + Math.random()*4.6)*10)/10;
+    draw(quizK,true);
+    sl.value="4.2"; kval.textContent="4.2"; kval.style.color="var(--ink)";
+    kband.textContent="your answer"; kband.style.color="var(--ink-faint)";
+    qbox.hidden=false; verdict.textContent="";
+    qtext.innerHTML="<b>Here is a trace. What is the potassium?</b> Move the slider to your answer, then reveal.";
+  });
+
+  document.getElementById("reveal").addEventListener("click",function(){
+    if(quizK===null) return;
+    var guess=+sl.value, err=Math.abs(guess-quizK), msg;
+    if(err<=0.3) msg="Within 0.3 mmol/L. You are reading the T wave.";
+    else if(err<=0.7) msg="Within 0.7 mmol/L. Close — check the U wave next time.";
+    else msg="Off by more than 0.7 mmol/L. Look at T wave height first, then whether a U wave is there.";
+    verdict.innerHTML="True "+quizK.toFixed(1)+" &middot; you said "+guess.toFixed(1)+" &middot; off by "+err.toFixed(1)+" mmol/L<br><span style=\"font-weight:400;color:var(--ink-soft);font-size:14px\">"+msg+"</span>";
+    quizK=null; draw(guess,false);
+    qtext.innerHTML="<b>Press Test yourself for another trace.</b>";
+  });
+
+  document.getElementById("reset").addEventListener("click",function(){
+    quizK=null; qbox.hidden=true; sl.value="4.2"; draw(4.2,false);
+  });
+
+  draw(4.2,false);
+})();
+</script>
+
+</body>
+</html>
