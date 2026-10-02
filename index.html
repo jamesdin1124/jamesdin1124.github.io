@@ -159,7 +159,7 @@
     <a href="#about">About</a>
     <a href="#experience">Education &amp; Experience</a>
     <a href="#research">Research</a>
-    <a href="#demo">Try it</a>
+    <a href="#demo">Interactive</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
@@ -338,7 +338,6 @@
     <div class="others">
       <div><b>AI-ECG estimation of serum calcium before parathyroidectomy</b><span>Co-investigator. Extending waveform-based electrolyte estimation to a surgical decision point.</span></div>
       <div><b>Automated interpretation of pediatric kidney ultrasound</b><span>Co-investigator. Image-based assessment of kidney structure in children.</span></div>
-      <div><b>Hour-by-hour prediction of serum potassium in pediatric diabetic ketoacidosis</b><span>Principal investigator. A Bayesian hierarchical model built for a small cohort, using informative priors drawn from published studies. In preparation; ethics review pending.</span></div>
     </div>
 
 
@@ -349,16 +348,6 @@
         Your browser cannot play this video. <a href="research_explainer.mp4">Download it instead</a>.
       </video>
       <p class="note">2 min 37 s &middot; English narration &middot; no captions yet</p>
-
-    <h3 class="sub" style="margin-top:30px">Clinical software I have built</h3>
-    <div class="feature" style="margin-bottom:18px">
-      <span class="badge">Try it</span>
-      <h3>Bedwetting education sheet generator</h3>
-      <p class="org">For parents &middot; traditional Chinese &middot; <a href="enuresis/">open the tool</a></p>
-      <p>A parent answers about twenty questions about their child and the page writes them a tailored education sheet they can print and bring to clinic. It applies the ICCS expected-bladder-capacity formula, the Rome IV constipation screen, and the bladder&ndash;bowel dysfunction rule that says constipation must be treated first.</p>
-      <p><b>It collects nothing.</b> No account, no server, no storage &mdash; the reasoning runs in the browser and the answers disappear when the tab closes. That was a design constraint, not an afterthought: the families who need this are the least likely to want their child's wetting recorded anywhere.</p>
-      <p class="note">Ported from the education engine of a larger Streamlit and Supabase system I built, which also covers lower urinary tract symptoms, urinary tract infection, haematuria, foamy urine, and chronic kidney disease follow-up. That system is not currently deployed.</p>
-    </div>
 
     <h3 class="sub" style="margin-top:30px">Selected publications</h3>
     <ol class="pubs">
@@ -373,8 +362,22 @@
 
 <section id="demo">
   <div class="wrap">
-    <h2>Try it — read potassium off an ECG</h2>
-    <p class="lead">Move the slider. Watch what the trace does. After a few passes you will start to see it before you read the number.</p>
+    <h2>Interactive work — a prototype of personalised medicine</h2>
+    <p class="lead">Personalised medicine is usually sold as a genome. These two pages make a narrower claim: that the ordinary data already gathered about one person — an electrocardiogram, twenty answers from a parent — is often enough to produce something addressed to that person and to nobody else.</p>
+    <p>They are the two halves of the same loop. The first reads an individual signal and turns it into a number. The second takes an individual history and turns it into individual advice. Neither needs a laboratory, a login, or a server. Both run entirely in your browser, and neither keeps anything.</p>
+
+    <div class="feature" style="margin-bottom:30px">
+      <span class="badge">Open it</span>
+      <h3>Bedwetting education sheet generator</h3>
+      <p class="org">For parents &middot; traditional Chinese &middot; <a href="enuresis/">open the tool</a></p>
+      <p><b>The personalised half.</b> A parent answers about twenty questions about their child and the page writes them an education sheet meant for that child, to print and bring to clinic. It applies the ICCS expected-bladder-capacity formula, the Rome IV constipation screen, and the rule that when bladder and bowel symptoms occur together the constipation must be treated first. A child with a small bladder, a child passing too much urine at night, and a child with daytime urgency each get a different sheet.</p>
+      <p><b>It collects nothing.</b> No account, no server, no storage &mdash; I checked the published page and it makes exactly one network request, for its own script. That was a design constraint, not an afterthought: the families who need this are the least likely to want their child's wetting written down anywhere.</p>
+      <p class="note">The clinical logic is ported from the education engine of a Streamlit and Supabase system I built, which also covers lower urinary tract symptoms, urinary tract infection, haematuria, foamy urine, and chronic kidney disease follow-up. Moving it to plain JavaScript is what removed the database &mdash; and with it, the reason to collect anything.</p>
+    </div>
+
+    <h3 class="sub" style="margin-top:34px">Read potassium off an ECG</h3>
+    <p><b>The measurement half.</b> Before advice can be personal, the reading has to be. This is the signal my research works on, made small enough to play with.</p>
+    <p>Move the slider. Watch what the trace does. After a few passes you will start to see it before you read the number.</p>
 
     <div class="panel">
       <div class="ecgbox">
