@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>兒童尿床衛教單張產生器</title>
+<meta name="description" content="家長自己填答，當場產生專屬的兒童夜尿症衛教單張。資料只留在你的瀏覽器，不會上傳、不會儲存。">
+<meta name="robots" content="noindex">
+<style>
+  :root{
+    --ink:#16202b; --soft:#4a5b6d; --faint:#7d8b9a;
+    --bg:#fff; --bgs:#f4f7fa; --line:#dfe6ed;
+    --acc:#0f6fa8; --accs:#e3f0f8;
+    --ok:#1d7a4c; --oks:#e6f4ec;
+    --warn:#9a6b0e; --warns:#fdf4e0;
+    --err:#b3261e; --errs:#fbeceb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC",sans-serif;}
+  .wrap{max-width:880px;margin:0 auto;padding-inline:20px}
+  header{background:var(--bgs);border-bottom:1px solid var(--line);padding-block:30px}
+  h1{font-size:clamp(23px,4.6vw,31px);margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--soft);margin:0;font-size:15.5px}
+  .privacy{margin-top:18px;background:var(--oks);border:1px solid #b8ddc8;border-radius:11px;
+    padding:13px 16px;font-size:14.5px;color:#14543a}
+  .privacy b{color:#0f3d2a}
+  fieldset{border:1px solid var(--line);border-radius:13px;padding:20px;margin:22px 0}
+  legend{font-weight:700;font-size:15px;color:var(--acc);padding-inline:9px}
+  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px}
+  label.f{display:block;margin-bottom:14px}
+  label.f>span{display:block;font-size:14px;font-weight:600;margin-bottom:5px}
+  .hint{font-weight:400;color:var(--faint);font-size:13px;display:block;margin-top:3px}
+  input[type=number],select{width:100%;padding:10px 12px;font:inherit;font-size:15.5px;
+    border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+  input[type=number]:focus,select:focus{outline:2px solid var(--acc);outline-offset:1px;border-color:var(--acc)}
+  .checks{display:grid;gap:9px}
+  .checks label{display:flex;gap:10px;align-items:flex-start;font-size:15px;cursor:pointer;
+    padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:#fff}
+  .checks label:hover{border-color:var(--acc);background:var(--accs)}
+  .checks input{margin-top:4px;width:17px;height:17px;accent-color:var(--acc);flex:none}
+  .btn{font:inherit;font-size:16px;font-weight:700;cursor:pointer;border:1px solid var(--acc);
+    background:var(--acc);color:#fff;padding:13px 26px;border-radius:10px}
+  .btn.ghost{background:#fff;color:var(--acc);font-weight:600;font-size:15px;padding:10px 18px}
+  .bar{display:flex;gap:11px;flex-wrap:wrap;margin:26px 0 40px}
+  details>summary{cursor:pointer;font-weight:600;color:var(--acc);font-size:15px;padding:6px 0}
+
+  /* 結果 */
+  #out{display:none}
+  .sheet-head{border-bottom:3px solid var(--acc);padding-bottom:14px;margin-bottom:22px}
+  .sheet-head h2{margin:0 0 4px;font-size:25px}
+  .sheet-head p{margin:0;color:var(--faint);font-size:14px}
+  .nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+  .nums div{background:var(--bgs);border:1px solid var(--line);border-radius:11px;padding:13px 15px}
+  .nums b{display:block;font-size:25px;color:var(--acc);line-height:1.2;font-variant-numeric:tabular-nums}
+  .nums span{display:block;font-size:12.5px;color:var(--soft);margin-top:3px}
+  .sec{border-radius:12px;padding:18px 20px;margin-bottom:16px;border:1px solid var(--line);background:#fff}
+  .sec.warning{background:var(--warns);border-color:#e9cf96}
+  .sec.error{background:var(--errs);border-color:#edbdb9}
+  .sec.success{background:var(--oks);border-color:#b8ddc8}
+  .sec.info{background:var(--bgs)}
+  .sec h3{margin:0 0 10px;font-size:18.5px}
+  .sec p{margin:0 0 11px}
+  .sec ul{margin:0 0 12px;padding-left:22px}
+  .sec li{margin-bottom:5px}
+  .sec strong{color:var(--ink)}
+  .disc{margin-top:28px;background:var(--warns);border:1px solid #e9cf96;border-radius:11px;
+    padding:15px 18px;font-size:14.5px;color:#6b4c08}
+  footer{border-top:1px solid var(--line);margin-top:42px;padding-block:26px;
+    font-size:13.5px;color:var(--faint)}
+  @media print{
+    header,.bar,footer,.privacy,#form{display:none!important}
+    body{font-size:12pt}
+    .sec{break-inside:avoid;border:1px solid #bbb;background:#fff!important}
+    .nums div{background:#fff!important}
+  }
+  @media (max-width:560px){ fieldset{padding:16px} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>兒童尿床衛教單張產生器</h1>
+    <p class="sub">填完下面的題目，當場產生一份專屬於你孩子的衛教單張，可以直接列印帶去門診。</p>
+    <div class="privacy">
+      🔒 <b>這個網頁不會收集任何資料。</b>
+      你填的內容只留在自己的瀏覽器裡，按下「產生」時在這台裝置上直接運算 —— 不會上傳、不會儲存、關掉頁面就消失。沒有帳號，也不需要留任何聯絡方式。
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<form id="form">
+
+  <fieldset>
+    <legend>一、孩子的基本資料</legend>
+    <div class="row">
+      <label class="f"><span>年齡（歲）</span>
+        <input type="number" id="age" min="2" max="18" value="7" required></label>
+      <label class="f"><span>體重（公斤）<span class="hint">用來算建議喝水量</span></span>
+        <input type="number" id="weight" min="5" max="120" step="0.1" value="22"></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>二、尿床情形</legend>
+    <div class="row">
+      <label class="f"><span>多久尿床一次</span>
+        <select id="freq">
+          <option>每晚</option><option>每週4-6次</option>
+          <option selected>每週2-3次</option><option>每週1次</option><option>每月數次</option>
+        </select></label>
+      <label class="f"><span>屬於哪一種</span>
+        <select id="type">
+          <option value="從小就有">從小就有，不曾停過超過 6 個月</option>
+          <option value="曾經好過又復發">曾經超過 6 個月沒尿床，後來又開始</option>
+        </select></label>
+      <label class="f"><span>晚上會叫孩子起來尿尿嗎</span>
+        <select id="waking"><option>不會</option><option>有時會</option><option>每晚都會</option></select></label>
+      <label class="f"><span>最近兩週大約幾晚尿床<span class="hint">不確定就估一個數字</span></span>
+        <input type="number" id="wet" min="0" max="14" value="6"></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>三、喝水與排尿量</legend>
+    <div class="row">
+      <label class="f"><span>一次最多可以尿多少（ml）
+        <span class="hint">用量杯接一次早上第一泡尿就知道</span></span>
+        <input type="number" id="maxvoid" min="0" max="900" value="180"></label>
+      <label class="f"><span>平均一天喝多少水（ml）
+        <span class="hint">一個寶特瓶約 600 ml</span></span>
+        <input type="number" id="intake" min="0" max="5000" value="1000"></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>四、白天的排尿情形<span class="hint" style="display:inline;font-weight:400">　符合的請打勾</span></legend>
+    <div class="checks">
+      <label><input type="checkbox" id="d_urg"><span>常常突然很急，急到快忍不住</span></label>
+      <label><input type="checkbox" id="d_freq"><span>白天上廁所超過 8 次</span></label>
+      <label><input type="checkbox" id="d_inc"><span>白天會不小心漏尿</span></label>
+      <label><input type="checkbox" id="d_hold"><span>會做憋尿動作（夾腿、蹲下、扭來扭去）</span></label>
+      <label><input type="checkbox" id="d_strain"><span>尿尿要用力才尿得出來</span></label>
+      <label><input type="checkbox" id="d_weak"><span>尿柱很細、很弱</span></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>五、排便情形</legend>
+    <label class="f" style="max-width:280px"><span>每週大約排便幾次</span>
+      <input type="number" id="stoolfreq" min="0" max="35" value="7"></label>
+    <div class="checks">
+      <label><input type="checkbox" id="b_hard"><span>大便很硬，或排便時會痛</span></label>
+      <label><input type="checkbox" id="b_ret"><span>會故意忍著不大便（夾腿、坐立不安）</span></label>
+      <label><input type="checkbox" id="b_inc"><span>便便有時會不小心漏出來</span></label>
+      <label><input type="checkbox" id="b_large"><span>曾經大出很大條的便便，差點塞住馬桶</span></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>六、睡覺與過敏</legend>
+    <label class="f" style="max-width:280px"><span>會打呼嗎</span>
+      <select id="snore"><option>無</option><option>偶爾</option><option>經常</option></select></label>
+    <div class="checks">
+      <label><input type="checkbox" id="s_osa"><span>被診斷過睡眠呼吸中止</span></label>
+      <label><input type="checkbox" id="s_aden"><span>腺樣體肥大（鼻子後方腺體腫大，容易鼻塞）</span></label>
+      <label><input type="checkbox" id="s_tons"><span>扁桃腺肥大（喉嚨裡的腺體腫大）</span></label>
+      <label><input type="checkbox" id="s_ar"><span>過敏性鼻炎</span></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>七、家族史與其他</legend>
+    <div class="checks" style="margin-bottom:14px">
+      <label><input type="checkbox" id="f_pa"><span>爸爸小時候會尿床</span></label>
+      <label><input type="checkbox" id="f_ma"><span>媽媽小時候會尿床</span></label>
+      <label><input type="checkbox" id="o_uti"><span>曾經有尿道或膀胱感染</span></label>
+      <label><input type="checkbox" id="o_spine"><span>有脊椎相關疾病（如脊柱裂等）</span></label>
+    </div>
+    <label class="f" style="max-width:300px"><span>家人大約幾歲好的<span class="hint">不知道就留 0</span></span>
+      <input type="number" id="f_age" min="0" max="25" value="0"></label>
+  </fieldset>
+
+  <details>
+    <summary>八、如果醫師已經做過檢查（選填）</summary>
+    <fieldset style="margin-top:12px">
+      <div class="row">
+        <label class="f"><span>晨尿滲透壓（mOsm/kg）</span>
+          <input type="number" id="c_uosm" min="0" max="1400" placeholder="沒做就留空"></label>
+        <label class="f"><span>尿流速型態（UFM）</span>
+          <select id="c_ufm"><option value="">沒做</option><option>鐘型（正常）</option>
+            <option>塔型</option><option>間歇型</option><option>平台型</option><option>其他</option></select></label>
+        <label class="f"><span>排尿後殘尿量（ml）</span>
+          <input type="number" id="c_pvr" min="0" max="500" placeholder="沒做就留空"></label>
+      </div>
+    </fieldset>
+  </details>
+
+  <div class="bar">
+    <button type="submit" class="btn">產生我的衛教單張</button>
+  </div>
+</form>
+
+<section id="out">
+  <div class="sheet-head">
+    <h2>你的專屬衛教單張</h2>
+    <p id="meta"></p>
+  </div>
+  <div class="nums" id="nums"></div>
+  <div id="secs"></div>
+  <div class="disc">
+    ⚠️ <b>這份單張是衛教參考，不能取代醫師的診斷與處方。</b>
+    內容依你填的資料自動產生。如果孩子的情況和單張寫的不一樣，以醫師看診的判斷為準。
+  </div>
+  <div class="bar">
+    <button class="btn" onclick="window.print()">列印／存成 PDF</button>
+    <button class="btn ghost" id="back">回去修改答案</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  衛教內容依 ICCS 膀胱容量公式、Rome IV 排便篩檢標準與 EAU/ESPU 兒童夜尿症指引整理。<br>
+  製作：丁肇壯醫師（林口長庚紀念醫院 兒童腎臟科）　·　純前端運算，不收集任何資料
+</footer>
+
+<script src="engine.js"></script>
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var v = function(id){ return parseFloat($(id).value) || 0; };
+  var k = function(id){ return $(id).checked; };
+
+  /* 極簡 markdown：**粗體** 與 - 項目 */
+  function md(t){
+    var out = '', lines = t.split('\n'), inUl = false;
+    function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function bold(s){ return esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>'); }
+    lines.forEach(function(ln){
+      var t2 = ln.trim();
+      if (t2.indexOf('- ') === 0){
+        if (!inUl){ out += '<ul>'; inUl = true; }
+        out += '<li>' + bold(t2.slice(2)) + '</li>';
+      } else {
+        if (inUl){ out += '</ul>'; inUl = false; }
+        if (t2) out += '<p>' + bold(t2) + '</p>';
+      }
+    });
+    if (inUl) out += '</ul>';
+    return out;
+  }
+
+  $('form').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var rome = EnuresisEngine.screenRomeIV({
+      stool_freq_le_2: v('stoolfreq') <= 2,
+      hard_or_painful: k('b_hard'),
+      retentive_posturing: k('b_ret'),
+      fecal_incontinence: k('b_inc'),
+      large_diameter_stool: k('b_large')
+    });
+
+    var oc = [];
+    if (k('o_uti')) oc.push('曾經有尿道或膀胱感染');
+    if (k('o_spine')) oc.push('脊椎相關疾病（如脊柱裂等）');
+
+    var mh = {
+      age_years: v('age'), weight_kg: v('weight'),
+      bedwetting_frequency: $('freq').value, bedwetting_type: $('type').value,
+      night_waking: $('waking').value,
+      daytime_urgency: k('d_urg'), daytime_frequency: k('d_freq'),
+      daytime_incontinence: k('d_inc'), holding_maneuvers: k('d_hold'),
+      straining_to_void: k('d_strain'), weak_stream: k('d_weak'),
+      stool_frequency_per_week: v('stoolfreq'),
+      hard_or_painful: k('b_hard'), retentive_posturing: k('b_ret'),
+      fecal_incontinence: k('b_inc'), large_diameter_stool: k('b_large'),
+      constipation_screening_positive: rome,
+      snoring: $('snore').value, osa_diagnosed: k('s_osa'),
+      adenoid_hypertrophy: k('s_aden'), tonsillar_hypertrophy: k('s_tons'),
+      allergic_rhinitis: k('s_ar'),
+      father_had_bedwetting: k('f_pa'), mother_had_bedwetting: k('f_ma'),
+      family_resolution_age: v('f_age'), other_conditions: oc
+    };
+    var vs = { max_voided_volume_ml: v('maxvoid'), total_intake_ml: v('intake'),
+               total_nights: 1, wet_nights: v('wet') };
+    var ct = null;
+    if (v('c_uosm') || $('c_ufm').value || v('c_pvr')){
+      ct = { uosm: v('c_uosm') || null, ufm_flow_pattern: $('c_ufm').value || null,
+             renal_us_post_void_residual_ml: v('c_pvr') || null };
+    }
+
+    var r = EnuresisEngine.generateRecommendations(mh, vs, ct);
+    var s = r.summary;
+
+    $('meta').textContent = v('age') + ' 歲　·　' + $('freq').value +
+      '　·　產生日期 ' + new Date().toLocaleDateString('zh-TW');
+
+    $('nums').innerHTML =
+      '<div><b>' + s.expected_bladder_capacity_ml + '</b><span>預期膀胱容量 ml（ICCS）</span></div>' +
+      '<div><b>' + s.max_voided_volume_ml + '</b><span>孩子最大排尿量 ml</span></div>' +
+      '<div><b>' + s.bladder_capacity_ratio + '%</b><span>佔預期容量比例</span></div>' +
+      '<div><b>' + s.wet_nights + '</b><span>最近兩週尿床晚數</span></div>';
+
+    $('secs').innerHTML = r.sections.map(function(x){
+      return '<div class="sec ' + x.severity + '"><h3>' + x.icon + '　' + x.title + '</h3>' + md(x.content) + '</div>';
+    }).join('');
+
+    $('out').style.display = 'block';
+    $('form').style.display = 'none';
+    window.scrollTo(0, 0);
+  });
+
+  $('back').addEventListener('click', function(){
+    $('out').style.display = 'none';
+    $('form').style.display = 'block';
+    window.scrollTo(0, 0);
+  });
+})();
+</script>
+</body>
+</html>
