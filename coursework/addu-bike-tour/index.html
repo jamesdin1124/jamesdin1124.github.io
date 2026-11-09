@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Addu Atoll by Bike — CMD728 coursework</title>
+<meta name="description" content="Pre-trip booklet for a self-guided bike tour of Addu Atoll, Maldives. CMD728 Generative AI in-class breakout activity, 9 November 2026.">
+<link rel="alternate" hreflang="en" href="./">
+<link rel="alternate" hreflang="zh-Hant" href="zh.html">
+<style>
+/* Layout: 單欄小冊子，每節是一「頁」；封面插畫與路線圖是主視覺，每日行程是逐時表 */
+:root{
+  --bg:#f3f8f7; --paper:#ffffff; --ink:#12313a; --muted:#567077;
+  --lagoon:#0f8f8a; --lagoon-soft:#d5efec; --coral:#d96c4f; --coral-soft:#fbe3da; --line:#c9dcda;
+  --sky1:#bfe9f0; --sky2:#fdf1dc; --sea1:#2bb3b0; --sea2:#137f8c; --sand:#f3dfb5; --sun:#f6b04a; --leaf:#2f8a5b; --trunk:#9a6b3f;
+  --display:"LXGW WenKai TC","Noto Serif TC",serif;
+  --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 56px}
+.book{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.page{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:28px clamp(18px,4vw,40px);min-width:0}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.3}
+h1{font-size:clamp(2.1rem,6.5vw,3.1rem)}
+h2{font-size:1.6rem;margin-bottom:14px}
+h3{font-size:1.15rem}
+p{margin:0 0 10px;max-width:65ch}
+a{color:var(--lagoon)}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lagoon)}
+.note{font-size:.88rem;color:var(--muted)}
+
+/* 插圖共用 */
+svg .sky1{stop-color:var(--sky1)} svg .sky2{stop-color:var(--sky2)}
+svg .sun{fill:var(--sun)} svg .sea1{fill:var(--sea1)} svg .sea2{fill:var(--sea2)}
+svg .sand{fill:var(--sand)} svg .road{stroke:var(--sand);fill:none}
+svg .dash{stroke:var(--paper);fill:none} svg .leaf{fill:var(--leaf)} svg .trunk{stroke:var(--trunk);fill:none}
+svg .ink{fill:var(--ink)} svg .inks{stroke:var(--ink);fill:none} svg .coral{fill:var(--coral)} svg .corals{stroke:var(--coral);fill:none}
+svg .lag{fill:var(--lagoon)} svg .lags{stroke:var(--lagoon);fill:none} svg .lagsoft{fill:var(--lagoon-soft)}
+svg .paper{fill:var(--paper)} svg .wave{stroke:var(--paper);fill:none;opacity:.55}
+svg .muted{fill:var(--muted)} svg .coralsoft{fill:var(--coral-soft)}
+svg text{font-family:var(--body)}
+
+/* 封面 */
+.cover{padding:0;overflow:hidden}
+.hero{display:block;width:100%;height:auto}
+.cover-body{padding:24px clamp(18px,4vw,40px) 28px;display:flex;flex-direction:column;gap:12px}
+.cover .sub{color:var(--muted);font-size:1.05rem}
+.facts{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:.82rem;padding:3px 10px;border-radius:999px;background:var(--lagoon-soft);color:var(--ink)}
+.chip.warn{background:transparent;border:1px solid var(--coral);color:var(--coral)}
+.toc{columns:2;column-gap:28px;font-size:.95rem;color:var(--muted);margin:4px 0 0;padding-left:1.2em}
+@media (max-width:480px){.toc{columns:1}}
+
+/* 圖框 */
+.fig{overflow-x:auto;margin:6px 0 6px}
+.fig svg{display:block;width:100%;height:auto}
+.fig.wide svg{min-width:560px}
+
+ul.rules{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+ul.rules li{display:grid;grid-template-columns:7.5em 1fr;gap:12px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
+ul.rules li:last-child{border-bottom:0}
+ul.rules b{color:var(--lagoon)}
+
+/* 每日行程 */
+.day{border-top:2px solid var(--ink);padding-top:18px;margin-top:22px}
+.day:first-of-type{margin-top:6px}
+.dayhead{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:center;margin-bottom:10px}
+.badge{width:56px;height:56px;border-radius:50%;background:var(--lagoon-soft);display:grid;place-items:center}
+.badge svg{width:32px;height:32px}
+.dayhead .meta{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+.dayhead .meta b{color:var(--coral);font-weight:600}
+.sched{width:100%;border-collapse:collapse;font-size:.94rem}
+.sched td{padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.sched td.t{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--lagoon);width:5.4em}
+.sched td.how{color:var(--muted);font-size:.86rem;width:38%}
+.sched tr.ride td.t{color:var(--coral);font-weight:600}
+.tip{margin-top:10px;padding:10px 14px;background:var(--coral-soft);border-radius:6px;font-size:.9rem}
+.tip b{color:var(--coral)}
+@media (max-width:560px){
+  .sched td.how{display:block;width:auto;padding-top:0;border-bottom:1px solid var(--line)}
+  .sched tr td:nth-child(2){border-bottom:0}
+  .sched td.t{display:block;padding-bottom:0;border-bottom:0}
+  .sched td{display:block}
+}
+
+.tablewrap{overflow-x:auto}
+table.money,table.stay{border-collapse:collapse;width:100%;font-size:.95rem}
+table.money th,table.money td,table.stay th,table.stay td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+tr.reserve td{color:var(--coral);font-weight:700}
+.tag{font-family:var(--mono);font-size:.72rem;padding:1px 6px;border-radius:4px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.timeline li{display:grid;grid-template-columns:7.5em 1fr;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.timeline li span:first-child{font-family:var(--mono);font-size:.86rem;color:var(--lagoon);font-weight:600}
+@media (max-width:480px){ul.rules li,.timeline li{grid-template-columns:1fr;gap:2px}}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.check{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:6px}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{margin-top:6px;accent-color:var(--lagoon);width:16px;height:16px;flex:none}
+.check input:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+.phr{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.95rem}
+.phr .dv{font-family:var(--mono);color:var(--lagoon)}
+.src{font-size:.85rem;color:var(--muted);padding-left:1.2em}
+</style>
+<style>
+:root{--mono:ui-monospace,"SF Mono",Menlo,monospace}
+:root{--display:Georgia,"Times New Roman",serif;--body:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.topbar{max-width:780px;margin:0 auto 14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.9rem}
+.topbar a{text-decoration:none;font-weight:600}
+.topbar a:hover{text-decoration:underline}
+.about-work{font-size:.9rem;color:var(--muted);border-left:3px solid var(--lagoon);padding-left:12px;margin:0}
+</style>
+</head>
+<body>
+<div class="topbar"><a href="../../#coursework">← Jhao-Jhuang Ding · Coursework</a><a href="zh.html" lang="zh-Hant">中文版</a></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-plane" viewBox="0 0 32 32"><path style="fill:var(--lagoon)" d="M3 18l11-3 6-10h3l-3 10 7-2 2-4h2l-1 6 1 6h-2l-2-4-7-2 3 10h-3l-6-10-11-3z"/></symbol>
+  <symbol id="i-bike" viewBox="0 0 32 32"><g style="stroke:var(--lagoon);fill:none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="6"/><circle cx="24" cy="21" r="6"/><path d="M8 21l6-10h8l2 10M14 11l4 10h-10M21 7h3"/></g></symbol>
+  <symbol id="i-mask" viewBox="0 0 32 32"><g stroke-width="2.2" stroke-linecap="round"><rect style="stroke:var(--lagoon);fill:none" x="4" y="11" width="20" height="11" rx="5"/><path style="stroke:var(--lagoon);fill:none" d="M14 11v11"/><path style="stroke:var(--coral);fill:none" d="M27 4v14a4 4 0 0 1-4 4"/></g></symbol>
+  <symbol id="i-sun" viewBox="0 0 32 32"><circle style="fill:var(--coral)" cx="16" cy="20" r="7"/><rect style="fill:var(--lagoon-soft)" x="0" y="20" width="32" height="12"/><g style="stroke:var(--lagoon);fill:none" stroke-width="2.2" stroke-linecap="round"><path d="M4 23h24M8 27h16"/></g></symbol>
+  <symbol id="i-home" viewBox="0 0 32 32"><g style="stroke:var(--lagoon);fill:none" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M5 15L16 6l11 9M8 13v13h16V13M14 26v-7h4v7"/></g></symbol>
+  <symbol id="i-palm" viewBox="0 0 60 90">
+    <path style="stroke:var(--trunk);fill:none" stroke-width="5" stroke-linecap="round" d="M30 88 C 33 65, 26 45, 31 22"/>
+    <g style="fill:var(--leaf)"><ellipse cx="17" cy="22" rx="16" ry="5" transform="rotate(20 17 22)"/><ellipse cx="45" cy="22" rx="16" ry="5" transform="rotate(-20 45 22)"/><ellipse cx="22" cy="13" rx="14" ry="4.5" transform="rotate(-35 22 13)"/><ellipse cx="40" cy="13" rx="14" ry="4.5" transform="rotate(35 40 13)"/><ellipse cx="31" cy="10" rx="4.5" ry="12"/></g>
+  </symbol>
+</svg>
+<div class="book">
+<p class="about-work"><b>Coursework.</b> CMD728 Generative AI, in-class breakout activity, 9 November 2026. Task: design an around-the-island bike tour — define the constraints, work out a trip plan, estimate the budget per person, and create a pre-trip booklet. Made with generative AI as a collaborator. Prices and facts were checked against the sources in Section 11.</p>
+
+<!-- ===== Cover ===== -->
+<section class="page cover">
+  <svg class="hero" viewBox="0 0 800 330" role="img" aria-label="Illustration: a tropical morning. A cyclist rides along a causeway road that links small islands. A lagoon and palm trees are on both sides.">
+    <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sky1"/><stop offset="1" class="sky2"/></linearGradient></defs>
+    <rect width="800" height="330" fill="url(#sky)"/>
+    <circle class="sun" cx="610" cy="120" r="54" opacity=".9"/>
+    <circle class="sun" cx="610" cy="120" r="76" opacity=".18"/>
+    <rect class="sea2" y="178" width="800" height="152"/>
+    <path class="sea1" d="M0 205 C 160 190, 300 215, 460 200 S 700 185, 800 198 V330 H0z"/>
+    <g class="wave" stroke-width="2" stroke-linecap="round">
+      <path d="M40 190 q12 -6 24 0 t24 0"/><path d="M520 186 q12 -6 24 0 t24 0"/><path d="M690 192 q10 -5 20 0 t20 0"/>
+      <path d="M90 300 q14 -7 28 0 t28 0"/><path d="M600 306 q14 -7 28 0 t28 0"/>
+    </g>
+    <ellipse class="sand" cx="95" cy="246" rx="120" ry="20"/>
+    <ellipse class="sand" cx="720" cy="226" rx="110" ry="16"/>
+    <use href="#i-palm" x="30" y="150" width="60" height="90"/>
+    <use href="#i-palm" x="88" y="168" width="48" height="72"/>
+    <use href="#i-palm" x="690" y="140" width="56" height="84"/>
+    <use href="#i-palm" x="740" y="160" width="44" height="66"/>
+    <path class="road" stroke-width="26" stroke-linecap="round" d="M120 248 C 300 270, 480 250, 700 226"/>
+    <path class="dash" stroke-width="2.5" stroke-dasharray="12 10" d="M120 248 C 300 270, 480 250, 700 226"/>
+    <g transform="translate(372 206)">
+      <g class="inks" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="0" cy="40" r="13"/><circle cx="42" cy="38" r="13"/>
+        <path d="M0 40 L14 20 L34 20 L42 38 M14 20 L22 39 L0 40 M31 13 L36 13 M22 39 L34 20"/>
+        <path d="M18 18 L26 0 L36 14"/>
+      </g>
+      <circle class="coral" cx="28" cy="-8" r="7"/>
+      <path class="coral" d="M20 -10 a9 7 0 0 1 17 -3 z"/>
+    </g>
+    <path class="lagsoft" opacity=".75" d="M560 285 q22 -16 44 0 q-10 2 -16 10 l-6 14 l-6 -14 q-6 -8 -16 -10z"/>
+    <text x="40" y="44" class="ink" font-size="15" font-family="ui-monospace, Menlo, monospace" letter-spacing="2">0°41′S · 73°10′E</text>
+  </svg>
+  <div class="cover-body">
+    <div class="eyebrow">Pre-trip booklet · CMD728 Breakout 2026-11-09</div>
+    <h1>Addu Atoll by Bike</h1>
+    <p class="sub">One causeway road links four islands at the south end of the Maldives. In 6 days and 5 nights, you ride it on your own: Gan, Feydhoo, Maradhoo and Hithadhoo.</p>
+    <div class="facts">
+      <span class="chip">Sample dates 18–23 Jan 2027</span>
+      <span class="chip">Total ride about 50 km</span>
+      <span class="chip">Flat · for beginners</span>
+      <span class="chip">About NT$ 64,700 per person</span>
+      <span class="chip warn">Self-guided</span>
+    </div>
+    <ol class="toc">
+      <li>Why Addu</li><li>Constraints</li><li>Route map</li><li>Riding hours</li><li>Daily plan</li><li>Where to stay</li><li>Luggage</li><li>Budget per person</li><li>Booking timeline</li><li>Before you go</li><li>Sources</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== 1 ===== -->
+<section class="page">
+  <h2>1　Why Addu</h2>
+  <p>The Maldives has 1,192 coral islands. Most islands are only a few hundred metres long. You can ride around one in less than ten minutes. They are too small for a bike tour.</p>
+  <p>Addu Atoll, in the far south, is different. Britain used Gan as an air base in the Second World War. Later, a causeway road, the <b>Link Road</b>, joined Gan, Feydhoo, Maradhoo and Hithadhoo. The road is about 14–16 km long. It is one of the longest roads in the Maldives.</p>
+  <p>In this plan, "around the island" means this: you follow the curve of the atoll from Gan in the south to Hithadhoo in the north. Then you ride back.</p>
+</section>
+
+<!-- ===== 2 ===== -->
+<section class="page">
+  <h2>2　Constraints</h2>
+  <ul class="rules">
+    <li><b>Length</b><span>6 days, 5 nights. There is no direct flight from Taiwan. The outbound and return trips each take one day.</span></li>
+    <li><b>Travel style</b><span>Self-guided. You book flights, guesthouses and the snorkel trip. There is no guide.</span></li>
+    <li><b>Fitness</b><span>Normal adults. Maximum 35 km of riding per day. All roads are flat.</span></li>
+    <li><b>Season</b><span>Go in January. January to March is the dry northeast monsoon. Avoid Ramadan (about early February to early March 2027). Most restaurants close in the daytime then.</span></li>
+    <li><b>Heat</b><span>About 30 °C with high humidity. Ride only 06:30–10:00 and 16:00–18:15. Stay indoors at midday.</span></li>
+    <li><b>Traffic</b><span>The Maldives drives on the left. Keep left. Do not ride after dark.</span></li>
+    <li><b>Culture</b><span>Islamic country. No alcohol on local islands. Cover shoulders and knees. Wear a bikini only on marked beaches. Shops close for Friday midday prayers.</span></li>
+    <li><b>Road</b><span>Work on the Link Road is in progress. Ask the guesthouse which parts are closed before you go.</span></li>
+    <li><b>Budget</b><span>Maximum NT$ 65,000 per person, including a 10% reserve. Stay in guesthouses, not resorts.</span></li>
+    <li><b>Entry</b><span>Fill in the IMUGA traveller declaration online within 96 h before arrival. Your passport must be valid for at least 6 more months.</span></li>
+  </ul>
+</section>
+
+<!-- ===== 3 Route map ===== -->
+<section class="page">
+  <h2>3　Route map</h2>
+  <div class="fig wide">
+    <svg viewBox="0 0 680 380" role="img" aria-label="Route map of Addu Atoll. The atoll is heart-shaped. On the west curve, from south to north: Gan, Feydhoo, Maradhoo, Hithadhoo, joined by the Link Road. Addu Nature Park is at the north end. The lagoon is in the middle.">
+      <rect class="sea2" width="680" height="380" rx="6"/>
+      <path class="sea1" d="M120 300 C 90 200, 150 70, 300 60 C 430 50, 560 110, 570 210 C 580 300, 480 340, 340 335 C 230 332, 150 330, 120 300z"/>
+      <g class="wave" stroke-width="2" stroke-linecap="round"><path d="M300 200 q12 -6 24 0 t24 0"/><path d="M380 250 q12 -6 24 0 t24 0"/><path d="M260 150 q12 -6 24 0 t24 0"/></g>
+      <text x="340" y="210" class="paper" font-size="16" text-anchor="middle" opacity=".85">Lagoon</text>
+      <g class="sand" opacity=".55"><ellipse cx="560" cy="150" rx="22" ry="8" transform="rotate(60 560 150)"/><ellipse cx="575" cy="245" rx="18" ry="7" transform="rotate(95 575 245)"/><ellipse cx="500" cy="320" rx="22" ry="7" transform="rotate(-20 500 320)"/></g>
+      <text x="600" y="200" class="paper" font-size="12" opacity=".8">Hulhudhoo</text>
+      <text x="600" y="216" class="paper" font-size="12" opacity=".8">Meedhoo</text>
+      <text x="600" y="232" class="paper" font-size="11" opacity=".7">(no road link)</text>
+      <g class="sand">
+        <ellipse cx="250" cy="330" rx="46" ry="14" transform="rotate(-8 250 330)"/>
+        <ellipse cx="150" cy="300" rx="34" ry="12" transform="rotate(35 150 300)"/>
+        <ellipse cx="118" cy="232" rx="40" ry="11" transform="rotate(80 118 232)"/>
+        <path d="M118 175 C 112 120, 150 70, 230 52 L 236 66 C 170 86, 140 125, 136 178z"/>
+      </g>
+      <path class="corals" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 7" d="M268 330 C 200 336, 162 312, 146 292 C 126 266, 118 240, 120 205 C 122 150, 150 95, 228 60"/>
+      <g>
+        <circle class="coral" cx="268" cy="330" r="8"/>
+        <text x="280" y="352" class="paper" font-size="16" font-weight="700">Gan</text>
+        <text x="280" y="368" class="paper" font-size="11" font-family="ui-monospace, Menlo, monospace">0 km ✈ airport</text>
+        <circle class="paper" cx="160" cy="306" r="6"/>
+        <text x="20" y="330" class="paper" font-size="15" font-weight="700">Feydhoo</text>
+        <text x="20" y="346" class="paper" font-size="11" font-family="ui-monospace, Menlo, monospace">~3 km · stay</text>
+        <circle class="paper" cx="120" cy="236" r="6"/>
+        <text x="20" y="232" class="paper" font-size="15" font-weight="700">Maradhoo</text>
+        <text x="20" y="248" class="paper" font-size="11" font-family="ui-monospace, Menlo, monospace">~7 km</text>
+        <circle class="paper" cx="128" cy="150" r="6"/>
+        <text x="20" y="146" class="paper" font-size="15" font-weight="700">Hithadhoo</text>
+        <text x="20" y="162" class="paper" font-size="11" font-family="ui-monospace, Menlo, monospace">~11 km · lunch</text>
+        <circle class="coral" cx="228" cy="60" r="8"/>
+        <text x="244" y="48" class="paper" font-size="15" font-weight="700">Addu Nature Park</text>
+        <text x="244" y="64" class="paper" font-size="11" font-family="ui-monospace, Menlo, monospace">~15 km · turn back</text>
+      </g>
+      <use href="#i-mask" x="470" y="280" width="26" height="26"/>
+      <text x="410" y="276" class="paper" font-size="12">Day 4 snorkel (site set by operator)</text>
+      <g transform="translate(630 50)"><path class="paper" d="M0 -22 L8 6 L0 0 L-8 6z"/><text y="22" class="paper" font-size="12" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">N</text></g>
+    </svg>
+  </div>
+  <p class="note">Diagram, not to scale. Distances between islands are estimates. Sources give different lengths for the Link Road (14–16 km). Use the real distance on site.</p>
+</section>
+
+<!-- ===== 4 Riding hours ===== -->
+<section class="page">
+  <h2>4　Riding hours</h2>
+  <p>The sun near the equator is strong. Divide each day into three parts: ride early, stay inside at midday, ride late. Sunset is at about 18:15. Be back at the guesthouse before dark.</p>
+  <div class="fig wide">
+    <svg viewBox="0 0 640 140" role="img" aria-label="Time bar: ride from 06:30 to 10:00, rest indoors from 10:00 to 16:00, ride from 16:00 to 18:15, no riding after sunset at 18:15">
+      <rect class="lagsoft" x="20" y="40" width="600" height="44" rx="4"/>
+      <rect class="lag" x="80" y="40" width="140" height="44"/>
+      <rect class="coralsoft" x="220" y="40" width="240" height="44"/>
+      <rect class="lag" x="460" y="40" width="90" height="44"/>
+      <rect class="ink" x="550" y="40" width="70" height="44" opacity=".85"/>
+      <text x="150" y="67" class="paper" font-size="14" text-anchor="middle" font-weight="700">Ride</text>
+      <text x="340" y="67" class="ink" font-size="13" text-anchor="middle">Too hot: indoors, meals, snorkel</text>
+      <text x="505" y="67" class="paper" font-size="14" text-anchor="middle" font-weight="700">Ride</text>
+      <text x="585" y="67" class="paper" font-size="13" text-anchor="middle">Dark</text>
+      <g class="muted" font-size="11" font-family="ui-monospace, Menlo, monospace" text-anchor="middle">
+        <text x="20" y="104">05</text><text x="80" y="104">06:30</text><text x="220" y="104">10:00</text><text x="340" y="104">13:00</text><text x="460" y="104">16:00</text><text x="550" y="104">18:15</text><text x="620" y="104">20</text>
+      </g>
+      <use href="#i-sun" x="536" y="6" width="28" height="28"/>
+      <text x="530" y="26" class="muted" font-size="12" text-anchor="end">Sunset</text>
+      <text x="20" y="128" class="muted" font-size="11">Addu in January: sunrise about 06:15, sunset about 18:15 (estimate)</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ===== 5 Daily plan ===== -->
+<section class="page">
+  <h2>5　Daily plan</h2>
+  <p class="note">Flight times are sample assumptions. When you book, put the real times here and adjust the plan. Orange time = riding.</p>
+
+  <div class="day">
+    <div class="dayhead">
+      <div class="badge"><svg><use href="#i-plane"/></svg></div>
+      <div><h3>Day 1　Taipei → Singapore → Malé</h3><div class="meta">Mon 18 Jan 2027 · Ride 0 km · Stay in Hulhumalé</div></div>
+    </div>
+    <table class="sched"><tbody>
+      <tr><td class="t">06:30</td><td>Check in at Taoyuan Airport.</td><td class="how">Keep these on your phone: IMUGA QR code, guesthouse booking, return ticket.</td></tr>
+      <tr><td class="t">Morning</td><td>Fly to Singapore (about 4.5 h).</td><td class="how">Keep at least 2 h for the connection.</td></tr>
+      <tr><td class="t">Afternoon</td><td>Fly Singapore → Malé (about 4.5 h).</td><td class="how">Malé is 3 h behind Taiwan. Set your watch.</td></tr>
+      <tr><td class="t">Evening</td><td>Arrive at Velana Airport. Go through immigration.</td><td class="how">Show your passport, IMUGA, hotel booking and return ticket.</td></tr>
+      <tr><td class="t">+30 min</td><td>Buy a local SIM card at the airport.</td><td class="how">Telecom desks are in the arrival hall (Dhiraagu, Ooredoo).</td></tr>
+      <tr><td class="t">+60 min</td><td>Check in at the Hulhumalé guesthouse.</td><td class="how">Taxi: about MVR 80–85, cash only. Bus: about MVR 10–20, every 30 min. Use the free pickup if the guesthouse has one.</td></tr>
+    </tbody></table>
+    <div class="tip"><b>Tonight: </b>Pack the large suitcase and leave it at the guesthouse (see Section 7). Ask what time the guesthouse can take you to the airport. Arrive 1.5 h before a domestic flight.</div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead">
+      <div class="badge"><svg><use href="#i-bike"/></svg></div>
+      <div><h3>Day 2　Fly to Gan and ride around Gan</h3><div class="meta">Tue 19 Jan 2027 · Ride <b>about 8 km</b> · Stay in Feydhoo</div></div>
+    </div>
+    <table class="sched"><tbody>
+      <tr><td class="t">05:30</td><td>Get up. Check out. Leave the large suitcase at the front desk and get a receipt.</td><td class="how">Take only the small bag to Addu. Ask for a breakfast box, or buy food at the airport.</td></tr>
+      <tr><td class="t">06:00</td><td>Go to the Velana domestic terminal.</td><td class="how">Guesthouse transfer or taxi.</td></tr>
+      <tr><td class="t">07:30</td><td>Fly Malé → Gan (about 1 h 15 min).</td><td class="how">The domestic bag limit is lower. Check the kg limit when you book.</td></tr>
+      <tr><td class="t">09:00</td><td>Arrive at Gan Airport.</td><td class="how">Guesthouse pickup to Feydhoo (about 3 km).</td></tr>
+      <tr><td class="t">09:30</td><td>Leave your bag. Get the bike. Do a test ride.</td><td class="how">Check the brakes, tyres, seat height, lights and lock. Photograph the bike.</td></tr>
+      <tr><td class="t">10:30</td><td>Have a drink. Rest.</td><td class="how">Kalhibih Drinks in Feydhoo.</td></tr>
+      <tr><td class="t">12:00</td><td>Lunch.</td><td class="how">TATSO Restaurant in Feydhoo.</td></tr>
+      <tr><td class="t">13:00</td><td>Check in. Sleep.</td><td class="how">Stay out of the midday sun.</td></tr>
+      <tr class="ride"><td class="t">16:00</td><td>Ride around Gan: British War Memorial → old RAF base buildings → Equator Village area.</td><td class="how">Feydhoo → Gan is about 3 km. The road is flat.</td></tr>
+      <tr class="ride"><td class="t">17:45</td><td>Watch the sunset from the causeway.</td><td class="how">Sunset is at about 18:15.</td></tr>
+      <tr><td class="t">18:30</td><td>Ride back to the guesthouse.</td><td class="how">Arrive before dark.</td></tr>
+      <tr><td class="t">19:00</td><td>Dinner.</td><td class="how">Elly Bistro in Feydhoo, or near the guesthouse.</td></tr>
+    </tbody></table>
+    <div class="tip"><b>Tonight: </b>Ask the guesthouse if road work closes part of the Link Road tomorrow. Fill your bottles and put them in the fridge.</div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead">
+      <div class="badge"><svg><use href="#i-bike"/></svg></div>
+      <div><h3>Day 3　Main ride: the full Link Road and back</h3><div class="meta">Wed 20 Jan 2027 · Ride <b>about 30–35 km</b> · Stay in Feydhoo</div></div>
+    </div>
+    <table class="sched"><tbody>
+      <tr><td class="t">05:45</td><td>Get up. Put on sunscreen. Fill 1.5 L of water.</td><td class="how">Take MVR cash, a charged phone and a power bank.</td></tr>
+      <tr class="ride"><td class="t">06:30</td><td>Ride north from Feydhoo.</td><td class="how">Keep left. Ride in single file.</td></tr>
+      <tr class="ride"><td class="t">07:00</td><td>Cross the Maradhoo causeway.</td><td class="how">Open sea on the left, lagoon on the right. Stop for photos.</td></tr>
+      <tr><td class="t">07:45</td><td>Breakfast: local tea and snacks.</td><td class="how">Just Tea, on the main road (no English sign).</td></tr>
+      <tr class="ride"><td class="t">08:30</td><td>Enter Hithadhoo. Ride north on the main road.</td><td class="how">Hithadhoo is the largest island. Watch for motorbikes.</td></tr>
+      <tr><td class="t">09:15</td><td>Addu Nature Park: wetland trail, birds, coast.</td><td class="how">This is the turn-back point. Read the notices before you rent a kayak.</td></tr>
+      <tr><td class="t">10:45</td><td>Visit the Hithadhoo market.</td><td class="how">Fresh fish and local produce on weekday mornings.</td></tr>
+      <tr><td class="t">11:30</td><td>Lunch.</td><td class="how">Suvadive Cafe or Two Star Dine. Small shops often take cash only.</td></tr>
+      <tr><td class="t">12:30</td><td>Stay indoors: café, supermarket, buy water.</td><td class="how">Do not ride at midday.</td></tr>
+      <tr class="ride"><td class="t">16:00</td><td>Ride south on the same road.</td><td class="how">About 15 km. About 1 h 15 min.</td></tr>
+      <tr class="ride"><td class="t">17:30</td><td>Arrive in Feydhoo.</td><td class="how">If you have energy, ride to the Gan causeway for the sunset.</td></tr>
+      <tr><td class="t">19:00</td><td>Dinner.</td><td class="how">DeAval (Indian food, thali set).</td></tr>
+    </tbody></table>
+    <div class="tip"><b>Plan B: </b>If it rains or you are tired, turn back at Maradhoo (about 14 km return). Take a taxi to Hithadhoo.</div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead">
+      <div class="badge"><svg><use href="#i-mask"/></svg></div>
+      <div><h3>Day 4　Snorkel trip and a short evening ride</h3><div class="meta">Thu 21 Jan 2027 · Ride <b>about 10 km</b> · Stay in Feydhoo</div></div>
+    </div>
+    <table class="sched"><tbody>
+      <tr><td class="t">07:30</td><td>Breakfast.</td><td class="how">At the guesthouse.</td></tr>
+      <tr><td class="t">08:30</td><td>Meet at the dive centre.</td><td class="how">For example, Equator Village or Aquaventure in Gan. Book at least one day before.</td></tr>
+      <tr><td class="t">09:00</td><td>Go out on the snorkel boat.</td><td class="how">Maa Kandu manta point: with the correct tide, snorkelers can see mantas. The current is strong. Wear a life vest. Stay near the guide.</td></tr>
+      <tr><td class="t">12:00</td><td>Return to the harbour.</td><td class="how">The British Loyalty wreck is 33 m deep. It is a dive site. Snorkelers cannot see it.</td></tr>
+      <tr><td class="t">12:30</td><td>Lunch.</td><td class="how">Gan or Feydhoo.</td></tr>
+      <tr><td class="t">13:30</td><td>Rest. Wash clothes. Pack.</td><td class="how">You fly tomorrow. Separate checked and cabin items.</td></tr>
+      <tr class="ride"><td class="t">16:30</td><td>Short ride: Feydhoo → Maradhoo causeway and back.</td><td class="how">About 10 km. Find your favourite photo spot.</td></tr>
+      <tr><td class="t">18:00</td><td>Return the bike. Pay the rent.</td><td class="how">Compare the bike with your Day 2 photos.</td></tr>
+      <tr><td class="t">19:00</td><td>Dinner.</td><td class="how">Last night in Addu. Go back to your favourite place.</td></tr>
+    </tbody></table>
+    <div class="tip"><b>Rules at sea: </b>Do not stand on or touch coral. Do not chase mantas. Do not touch turtles. Use reef-safe sunscreen only.</div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead">
+      <div class="badge"><svg><use href="#i-sun"/></svg></div>
+      <div><h3>Day 5　Gan → Malé, Hulhumalé beach</h3><div class="meta">Fri 22 Jan 2027 · Ride 0 km · Stay in Hulhumalé</div></div>
+    </div>
+    <table class="sched"><tbody>
+      <tr><td class="t">08:00</td><td>Breakfast. Check out.</td><td class="how">Pay the room and the green tax.</td></tr>
+      <tr><td class="t">09:30</td><td>Guesthouse transfer to Gan Airport.</td><td class="how">Arrive 1.5 h before a domestic flight.</td></tr>
+      <tr><td class="t">11:00</td><td>Fly Gan → Malé (about 1 h 15 min).</td><td class="how">Eat brunch at South Land Restaurant in Gan Airport before the flight.</td></tr>
+      <tr><td class="t">12:30</td><td>Go to the Hulhumalé guesthouse. Collect the large suitcase.</td><td class="how">Today is Friday. Many shops close for prayers around midday.</td></tr>
+      <tr><td class="t">14:30</td><td>Lunch.</td><td class="how">Shops open again after prayer time.</td></tr>
+      <tr><td class="t">16:00</td><td>Walk and swim at Hulhumalé beach.</td><td class="how">Cover shoulders and knees. Wear a bikini only in the marked area.</td></tr>
+      <tr><td class="t">18:00</td><td>Watch the last sunset.</td><td class="how"></td></tr>
+      <tr><td class="t">19:00</td><td>Dinner. Buy gifts.</td><td class="how">Local tuna products are a common gift.</td></tr>
+      <tr><td class="t">21:00</td><td>Pack. Fill in the departure IMUGA.</td><td class="how">Ask the guesthouse for the airport transfer time.</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="day">
+    <div class="dayhead">
+      <div class="badge"><svg><use href="#i-home"/></svg></div>
+      <div><h3>Day 6　Malé → Singapore → Taipei</h3><div class="meta">Sat 23 Jan 2027 · Ride 0 km</div></div>
+    </div>
+    <table class="sched"><tbody>
+      <tr><td class="t">Dep −3 h</td><td>Check in at the Velana international terminal.</td><td class="how">Taxi about MVR 80–85, or guesthouse transfer. Spend your last MVR at the airport.</td></tr>
+      <tr><td class="t">Day</td><td>Fly Malé → Singapore → Taipei.</td><td class="how">Arrival time depends on the real flight. It can be late at night.</td></tr>
+    </tbody></table>
+  </div>
+</section>
+
+<!-- ===== 6 Where to stay ===== -->
+<section class="page">
+  <h2>6　Where to stay</h2>
+  <p>Rule: stay in only two places. Do not change guesthouses every day. Leave your bags at the guesthouse and ride light. Two people share one room and split the price.</p>
+  <div class="tablewrap"><table class="stay">
+    <thead><tr><th>Night</th><th>Place</th><th>Why here</th><th>Example (compare prices before you book)</th></tr></thead>
+    <tbody>
+      <tr><td>Day 1</td><td>Hulhumalé</td><td>Island next to the airport. Short drive after a late arrival.</td><td>Express Inn (lists free airport pickup)</td></tr>
+      <tr><td>Days 2–4<br>3 nights</td><td>Feydhoo</td><td>On the south part of the Link Road, about 3 km from Gan Airport. Easy to ride north or visit Gan.</td><td>Muladdu Inn (bike rental, airport transfer); Lodger Guest House (bikes available)</td></tr>
+      <tr><td>Day 5</td><td>Hulhumalé</td><td>You fly home the next day. Use the Day 1 guesthouse. Leave unused bags there on Day 1.</td><td>Same as Day 1</td></tr>
+    </tbody>
+  </table></div>
+  <h3 style="margin-top:16px">Ask the guesthouse 5 questions before you book</h3>
+  <ol style="margin:6px 0 0;padding-left:1.2em">
+    <li>Does the price include tax and service charge? (Tourism goods and services tax is 17%.)</li>
+    <li>Is the green tax (USD 6 per night) extra, or in the price?</li>
+    <li>Do you have bikes? What is the price per day? Do you have helmets?</li>
+    <li>Do you have an airport transfer? Is it free?</li>
+    <li>What is the cancellation rule? Can I change dates for free if the domestic flight is cancelled or moved?</li>
+  </ol>
+  <p class="note" style="margin-top:10px">Why not a resort: the resort green tax is USD 12 per night, two times the guesthouse rate. Room prices are much higher. Resorts are on separate small islands, so you cannot ride out. A Hithadhoo guesthouse (for example, Rekidhiye Inn) also works. It is farther from Gan Airport, so ride Day 3 from north to south.</p>
+</section>
+
+<!-- ===== 7 Luggage ===== -->
+<section class="page">
+  <h2>7　Luggage</h2>
+  <p>Rule: the large suitcase stays in Hulhumalé. A small bag goes to Addu. You carry only a daypack when you ride. For this, book the same guesthouse for Day 1 and Day 5.</p>
+  <div class="fig wide">
+    <svg viewBox="0 0 640 170" role="img" aria-label="Luggage flow: the large suitcase stays at the Hulhumalé guesthouse from Day 1 to Day 5. The small bag flies to Addu and stays at the Feydhoo guesthouse. You carry only a daypack when you ride.">
+      <g transform="translate(40 30)">
+        <rect class="lag" x="0" y="14" width="64" height="86" rx="8"/><rect class="paper" x="22" y="4" width="20" height="12" rx="3" opacity=".9"/>
+        <path class="dash" stroke-width="3" d="M16 30v56M48 30v56"/>
+        <text x="32" y="122" class="ink" font-size="13" text-anchor="middle" font-weight="700">Large suitcase</text>
+        <text x="32" y="138" class="muted" font-size="11" text-anchor="middle">stays in Hulhumalé</text>
+      </g>
+      <g transform="translate(270 50)">
+        <rect class="coral" x="0" y="10" width="56" height="58" rx="8"/><path class="corals" stroke-width="4" d="M16 10 v-8 h24 v8"/>
+        <text x="28" y="102" class="ink" font-size="13" text-anchor="middle" font-weight="700">Small bag ≤ 20 kg</text>
+        <text x="28" y="118" class="muted" font-size="11" text-anchor="middle">domestic flight to Addu</text>
+      </g>
+      <g transform="translate(500 62)">
+        <path class="lag" d="M6 14 q22 -16 44 0 v42 a6 6 0 0 1 -6 6 h-32 a6 6 0 0 1 -6 -6z"/><rect class="paper" x="16" y="30" width="24" height="14" rx="3" opacity=".85"/>
+        <text x="28" y="90" class="ink" font-size="13" text-anchor="middle" font-weight="700">Daypack 10–15 L</text>
+        <text x="28" y="106" class="muted" font-size="11" text-anchor="middle">carry it when you ride</text>
+      </g>
+      <g class="inks" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 5"><path d="M124 86 H250"/><path d="M350 86 H480"/></g>
+      <text x="187" y="76" class="lag" font-size="12" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">Day 2 split</text>
+      <text x="415" y="76" class="lag" font-size="12" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">every ride</text>
+      <text x="187" y="108" class="muted" font-size="11" text-anchor="middle">Day 5 rejoin</text>
+    </svg>
+  </div>
+  <div class="tablewrap"><table class="stay">
+    <thead><tr><th>Item</th><th>What goes in it</th><th>Where it goes</th></tr></thead>
+    <tbody>
+      <tr><td><b>Large suitcase</b></td><td>Clothes for the trip home, space for gifts, items you do not need in Addu.</td><td>Leave it at the Hulhumalé guesthouse on Day 1. Collect it on Day 5.</td></tr>
+      <tr><td><b>Small bag</b><br>(1 per person)</td><td>Clothes for 4 days, swimwear, sunscreen, toiletries, chargers, helmet, bike lights.</td><td>Checked bag on the domestic flight. Keep it at the Feydhoo guesthouse.</td></tr>
+      <tr><td><b>Daypack</b></td><td>Passport, cash, phone, power bank, 1.5 L water, sunscreen, rain poncho, waterproof phone pouch.</td><td>Cabin bag on the domestic flight. Carry it when you ride.</td></tr>
+    </tbody>
+  </table></div>
+  <h3 style="margin-top:16px">Important</h3>
+  <ul style="margin:6px 0 0;padding-left:1.2em">
+    <li><b>Domestic limit: </b>about 20 kg checked and 5 kg cabin. One source says 25 kg checked. Use the number on your booking. Excess is MVR 70 per kg.</li>
+    <li><b>Ask first: </b>when you book, e-mail the Hulhumalé guesthouse. Ask if they can keep a bag for 4 days, and the price. Some front desks are not open 24 hours.</li>
+    <li><b>Keep valuables with you: </b>passport, cash, cards and electronics.</li>
+    <li><b>Stored suitcase: </b>lock it, tag it, photograph it, and get a receipt.</li>
+    <li><b>If storage is not possible: </b>take everything to Addu. Keep each bag under 20 kg.</li>
+    <li><b>International flight: </b>follow the airline rules. Check them when you book.</li>
+  </ul>
+</section>
+
+<!-- ===== 8 Budget ===== -->
+<section class="page">
+  <h2>8　Budget per person</h2>
+  <div class="tablewrap"><table class="money">
+    <thead><tr><th>Item</th><th>How we calculate it</th><th class="n">NT$</th><th>Basis</th></tr></thead>
+    <tbody>
+      <tr><td>International flight</td><td>Taipei ⇄ Malé, economy, one stop</td><td class="n">28,000</td><td><span class="tag">Estimate</span></td></tr>
+      <tr><td>Domestic flight</td><td>Malé ⇄ Gan return, USD 360</td><td class="n">11,520</td><td><span class="tag">Price check</span></td></tr>
+      <tr><td>Guesthouses</td><td>5 nights × USD 50 (shared room, tax included, per person)</td><td class="n">8,000</td><td><span class="tag">Price check</span></td></tr>
+      <tr><td>Green tax</td><td>Guesthouse USD 6 × 5 nights</td><td class="n">960</td><td><span class="tag">Official</span></td></tr>
+      <tr><td>Bike rent</td><td>MVR 100 × 3 days</td><td class="n">623</td><td><span class="tag">Price check</span></td></tr>
+      <tr><td>Snorkel boat</td><td>Half day, USD 60</td><td class="n">1,920</td><td><span class="tag">Estimate</span></td></tr>
+      <tr><td>Food + local transport</td><td>USD 30 × 6 days</td><td class="n">5,760</td><td><span class="tag">Estimate</span></td></tr>
+      <tr><td>Insurance + other</td><td>Fixed amount</td><td class="n">2,000</td><td><span class="tag">Estimate</span></td></tr>
+      <tr class="total"><td>Subtotal</td><td></td><td class="n">58,783</td><td></td></tr>
+      <tr class="reserve"><td>With 10% reserve</td><td>Subtotal × 1.1</td><td class="n">64,661</td><td></td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Exchange rates: 1 USD = 32 TWD; 1 USD = 15.42 MVR. International fares change a lot by season. Check again before you book. Ask the dive centre for the snorkel price.</p>
+</section>
+
+<!-- ===== 9 Booking timeline ===== -->
+<section class="page">
+  <h2>9　Booking timeline</h2>
+  <ol class="timeline">
+    <li><span>3 months before</span><span>Book the international flights. Then book the Malé ⇄ Gan domestic flights. There are few flights, so book early. First, check if this route has a direct flight now.</span></li>
+    <li><span>2 months before</span><span>Book the guesthouses: Hulhumalé 2 nights, Feydhoo 3 nights. Confirm bikes, transfers and bag storage by e-mail.</span></li>
+    <li><span>2 weeks before</span><span>Buy travel insurance (with overseas medical and water sports). E-mail a dive centre to book the Day 4 snorkel trip. Ask the price and meeting point.</span></li>
+    <li><span>Within 96 h</span><span>Fill in the IMUGA declaration online. Save the QR code.</span></li>
+    <li><span>1 day before</span><span>Check the weather. Ask the guesthouse about road work on the Link Road. Get some small US dollar notes.</span></li>
+  </ol>
+</section>
+
+<!-- ===== 10 Before you go ===== -->
+<section class="page">
+  <h2>10　Before you go</h2>
+  <div class="cols">
+    <div>
+      <h3>Packing list</h3>
+      <ul class="check" id="packing">
+        <li><label><input type="checkbox" id="p1">Passport (valid for 6+ months)</label></li>
+        <li><label><input type="checkbox" id="p2">IMUGA declaration (within 96 h before arrival)</label></li>
+        <li><label><input type="checkbox" id="p3">Your own helmet or a light helmet</label></li>
+        <li><label><input type="checkbox" id="p4">Front and rear bike lights</label></li>
+        <li><label><input type="checkbox" id="p5">1.5 L water bottle (each person)</label></li>
+        <li><label><input type="checkbox" id="p6">Reef-safe sunscreen, arm sleeves</label></li>
+        <li><label><input type="checkbox" id="p7">Light clothes that cover shoulders and knees</label></li>
+        <li><label><input type="checkbox" id="p8">Small US dollar notes</label></li>
+        <li><label><input type="checkbox" id="p9">UK-type 3-pin plug adapter</label></li>
+        <li><label><input type="checkbox" id="p10">Travel and overseas medical insurance</label></li>
+        <li><label><input type="checkbox" id="p11">Power bank, waterproof phone pouch</label></li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+      <div>
+        <h3>Three phrases in Dhivehi</h3>
+        <div class="phr">
+          <span class="dv">Assalaamu alaikum</span><span>Hello</span>
+          <span class="dv">Shukuriyaa</span><span>Thank you</span>
+          <span class="dv">Kihaa vareh?</span><span>How much?</span>
+        </div>
+      </div>
+      <div>
+        <h3>Emergency numbers</h3>
+        <div class="phr">
+          <span class="dv">119</span><span>Police</span>
+          <span class="dv">102</span><span>Ambulance</span>
+          <span class="dv">118</span><span>Fire</span>
+          <span class="dv">+886-800-085-095</span><span>Taiwan MOFA emergency line for travellers</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11 Sources ===== -->
+<section class="page">
+  <h2>11　Sources</h2>
+  <ul class="src">
+    <li>Task: CMD728 slides <i>20261109 GenAI.pptx</i>, slide 11, Breakout Activities</li>
+    <li><a href="https://www.discoveraddu.com/activities/biking/">Discover Addu – Biking</a>; <a href="https://discoveraddu.com/food/restaurants-cafes">Discover Addu – Restaurants &amp; Cafes</a></li>
+    <li><a href="https://www.lonelyplanet.com/maldives/southern-atolls/addu-atoll/restaurants">Lonely Planet – Addu Atoll restaurants</a></li>
+    <li><a href="https://en.wikivoyage.org/wiki/Gan">Wikivoyage – Gan</a></li>
+    <li><a href="https://all-addu.pages.dev/discover/addu-nature-park/plan">Addu Nature Park – bike rental</a></li>
+    <li><a href="https://atolltimes.mv/post/news/11870">Atoll Times – Link Road redevelopment</a></li>
+    <li><a href="https://www.kayak.com/flight-routes/Male-MLE/Addu-City-Gan-Seenu-GAN">KAYAK – Malé ⇄ Gan route</a></li>
+    <li><a href="https://psmnews.mv/en/176372">PSM News – green tax</a></li>
+    <li><a href="https://maldives-compass.pages.dev/places/hulhumale/how-to-get-there/index.html">Airport to Hulhumalé transport</a>; <a href="https://www.macl.aero/passengers/information/touristinformation">MACL – tourist information</a></li>
+    <li><a href="https://travel.padi.com/diving-in/maldives/addu-atoll">PADI – Addu dive sites</a>; <a href="https://zubludiving.com/resort/equator-village">Equator Village dive centre</a></li>
+    <li><a href="https://amaldives.com/guesthouses/rekidhiye-inn">aMaldives – Addu guesthouse prices</a>; <a href="https://amaldives.com/blog/guesthouse-lodger-guest-house">Lodger Guest House</a></li>
+    <li><a href="https://travelocity.com/Maldives-Guest-Houses.d109-aaGuestHouses.Travel-Guide-Accommodation">Travelocity – Hulhumalé guesthouses</a></li>
+    <li><a href="https://maldivian.aero/flying-with-us/before-you-fly/baggage-policy.html">Maldivian – Baggage Policy</a>; <a href="https://amaldives.com/blog/maldives-domestic-flights-guide-2026">aMaldives – Domestic flights guide</a></li>
+  </ul>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var KEY='addu-packing';
+  var saved={};
+  try{ saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ saved={}; }
+  document.querySelectorAll('#packing input').forEach(function(box){
+    if(saved[box.id]) box.checked=true;
+    box.addEventListener('change',function(){
+      saved[box.id]=box.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(saved)); }catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>

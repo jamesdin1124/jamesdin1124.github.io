@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Addu 環礁單車行 — CMD728 課堂作業</title>
+<meta name="description" content="馬爾地夫 Addu 環礁自助單車行前小冊子。CMD728 生成式人工智慧 2026-11-09 課堂分組活動。">
+<link rel="alternate" hreflang="en" href="./">
+<link rel="alternate" hreflang="zh-Hant" href="zh.html">
+<style>
+/* Layout: 單欄小冊子，每節是一「頁」；封面插畫與路線圖是主視覺，每日行程是逐時表 */
+:root{
+  --bg:#f3f8f7; --paper:#ffffff; --ink:#12313a; --muted:#567077;
+  --lagoon:#0f8f8a; --lagoon-soft:#d5efec; --coral:#d96c4f; --coral-soft:#fbe3da; --line:#c9dcda;
+  --sky1:#bfe9f0; --sky2:#fdf1dc; --sea1:#2bb3b0; --sea2:#137f8c; --sand:#f3dfb5; --sun:#f6b04a; --leaf:#2f8a5b; --trunk:#9a6b3f;
+  --display:"LXGW WenKai TC","Noto Serif TC",serif;
+  --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 56px}
+.book{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.page{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:28px clamp(18px,4vw,40px);min-width:0}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.3}
+h1{font-size:clamp(2.1rem,6.5vw,3.1rem)}
+h2{font-size:1.6rem;margin-bottom:14px}
+h3{font-size:1.15rem}
+p{margin:0 0 10px;max-width:65ch}
+a{color:var(--lagoon)}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lagoon)}
+.note{font-size:.88rem;color:var(--muted)}
+
+/* 插圖共用 */
+svg .sky1{stop-color:var(--sky1)} svg .sky2{stop-color:var(--sky2)}
+svg .sun{fill:var(--sun)} svg .sea1{fill:var(--sea1)} svg .sea2{fill:var(--sea2)}
+svg .sand{fill:var(--sand)} svg .road{stroke:var(--sand);fill:none}
+svg .dash{stroke:var(--paper);fill:none} svg .leaf{fill:var(--leaf)} svg .trunk{stroke:var(--trunk);fill:none}
+svg .ink{fill:var(--ink)} svg .inks{stroke:var(--ink);fill:none} svg .coral{fill:var(--coral)} svg .corals{stroke:var(--coral);fill:none}
+svg .lag{fill:var(--lagoon)} svg .lags{stroke:var(--lagoon);fill:none} svg .lagsoft{fill:var(--lagoon-soft)}
+svg .paper{fill:var(--paper)} svg .wave{stroke:var(--paper);fill:none;opacity:.55}
+svg .muted{fill:var(--muted)} svg .coralsoft{fill:var(--coral-soft)}
+svg text{font-family:var(--body)}
+
+/* 封面 */
+.cover{padding:0;overflow:hidden}
+.hero{display:block;width:100%;height:auto}
+.cover-body{padding:24px clamp(18px,4vw,40px) 28px;display:flex;flex-direction:column;gap:12px}
+.cover .sub{color:var(--muted);font-size:1.05rem}
+.facts{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:.82rem;padding:3px 10px;border-radius:999px;background:var(--lagoon-soft);color:var(--ink)}
+.chip.warn{background:transparent;border:1px solid var(--coral);color:var(--coral)}
+.toc{columns:2;column-gap:28px;font-size:.95rem;color:var(--muted);margin:4px 0 0;padding-left:1.2em}
+@media (max-width:480px){.toc{columns:1}}
+
+/* 圖框 */
+.fig{overflow-x:auto;margin:6px 0 6px}
+.fig svg{display:block;width:100%;height:auto}
+.fig.wide svg{min-width:560px}
+
+ul.rules{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+ul.rules li{display:grid;grid-template-columns:7.5em 1fr;gap:12px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
+ul.rules li:last-child{border-bottom:0}
+ul.rules b{color:var(--lagoon)}
+
+/* 每日行程 */
+.day{border-top:2px solid var(--ink);padding-top:18px;margin-top:22px}
+.day:first-of-type{margin-top:6px}
+.dayhead{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:center;margin-bottom:10px}
+.badge{width:56px;height:56px;border-radius:50%;background:var(--lagoon-soft);display:grid;place-items:center}
+.badge svg{width:32px;height:32px}
+.dayhead .meta{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+.dayhead .meta b{color:var(--coral);font-weight:600}
+.sched{width:100%;border-collapse:collapse;font-size:.94rem}
+.sched td{padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.sched td.t{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--lagoon);width:5.4em}
+.sched td.how{color:var(--muted);font-size:.86rem;width:38%}
+.sched tr.ride td.t{color:var(--coral);font-weight:600}
+.tip{margin-top:10px;padding:10px 14px;background:var(--coral-soft);border-radius:6px;font-size:.9rem}
+.tip b{color:var(--coral)}
+@media (max-width:560px){
+  .sched td.how{display:block;width:auto;padding-top:0;border-bottom:1px solid var(--line)}
+  .sched tr td:nth-child(2){border-bottom:0}
+  .sched td.t{display:block;padding-bottom:0;border-bottom:0}
+  .sched td{display:block}
+}
+
+.tablewrap{overflow-x:auto}
+table.money,table.stay{border-collapse:collapse;width:100%;font-size:.95rem}
+table.money th,table.money td,table.stay th,table.stay td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+tr.reserve td{color:var(--coral);font-weight:700}
+.tag{font-family:var(--mono);font-size:.72rem;padding:1px 6px;border-radius:4px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.timeline li{display:grid;grid-template-columns:7.5em 1fr;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.timeline li span:first-child{font-family:var(--mono);font-size:.86rem;color:var(--lagoon);font-weight:600}
+@media (max-width:480px){ul.rules li,.timeline li{grid-template-columns:1fr;gap:2px}}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.check{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:6px}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{margin-top:6px;accent-color:var(--lagoon);width:16px;height:16px;flex:none}
+.check input:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+.phr{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.95rem}
+.phr .dv{font-family:var(--mono);color:var(--lagoon)}
+.src{font-size:.85rem;color:var(--muted);padding-left:1.2em}
+</style>
+<style>
+:root{--mono:ui-monospace,"SF Mono",Menlo,monospace}
+:root{--display:"LXGW WenKai TC","Noto Serif TC","Songti TC",serif;--body:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+.topbar{max-width:780px;margin:0 auto 14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.9rem}
+.topbar a{text-decoration:none;font-weight:600}
+.topbar a:hover{text-decoration:underline}
+.about-work{font-size:.9rem;color:var(--muted);border-left:3px solid var(--lagoon);padding-left:12px;margin:0}
+</style>
+</head>
+<body>
+<div class="topbar"><a href="../../#coursework">← 丁肇壯 · 課堂作業</a><a href="./" lang="en">English</a></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-plane" viewBox="0 0 32 32"><path style="fill:var(--lagoon)" d="M3 18l11-3 6-10h3l-3 10 7-2 2-4h2l-1 6 1 6h-2l-2-4-7-2 3 10h-3l-6-10-11-3z"/></symbol>
+  <symbol id="i-bike" viewBox="0 0 32 32"><g style="stroke:var(--lagoon);fill:none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="6"/><circle cx="24" cy="21" r="6"/><path d="M8 21l6-10h8l2 10M14 11l4 10h-10M21 7h3"/></g></symbol>
+  <symbol id="i-mask" viewBox="0 0 32 32"><g stroke-width="2.2" stroke-linecap="round"><rect style="stroke:var(--lagoon);fill:none" x="4" y="11" width="20" height="11" rx="5"/><path style="stroke:var(--lagoon);fill:none" d="M14 11v11"/><path style="stroke:var(--coral);fill:none" d="M27 4v14a4 4 0 0 1-4 4"/></g></symbol>
+  <symbol id="i-sun" viewBox="0 0 32 32"><circle style="fill:var(--coral)" cx="16" cy="20" r="7"/><rect style="fill:var(--lagoon-soft)" x="0" y="20" width="32" height="12"/><g style="stroke:var(--lagoon);fill:none" stroke-width="2.2" stroke-linecap="round"><path d="M4 23h24M8 27h16"/></g></symbol>
+  <symbol id="i-home" viewBox="0 0 32 32"><g style="stroke:var(--lagoon);fill:none" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M5 15L16 6l11 9M8 13v13h16V13M14 26v-7h4v7"/></g></symbol>
+  <symbol id="i-palm" viewBox="0 0 60 90">
+    <path style="stroke:var(--trunk);fill:none" stroke-width="5" stroke-linecap="round" d="M30 88 C 33 65, 26 45, 31 22"/>
+    <g style="fill:var(--leaf)"><ellipse cx="17" cy="22" rx="16" ry="5" transform="rotate(20 17 22)"/><ellipse cx="45" cy="22" rx="16" ry="5" transform="rotate(-20 45 22)"/><ellipse cx="22" cy="13" rx="14" ry="4.5" transform="rotate(-35 22 13)"/><ellipse cx="40" cy="13" rx="14" ry="4.5" transform="rotate(35 40 13)"/><ellipse cx="31" cy="10" rx="4.5" ry="12"/></g>
+  </symbol>
+</svg>
+<div class="book">
+<p class="about-work"><b>課堂作業。</b>CMD728 生成式人工智慧，2026-11-09 課堂分組活動。題目：設計一趟環島單車之旅——定義限制條件、排出行程、估算每人預算、做一本行前小冊子。以生成式 AI 協作完成；價格與事實依第 11 節的來源查核。</p>
+
+<!-- ===== 封面 ===== -->
+<section class="page cover">
+  <svg class="hero" viewBox="0 0 800 330" role="img" aria-label="插畫：熱帶清晨，一位單車騎士沿著連接小島的海堤公路前進，兩側是潟湖與椰子樹">
+    <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sky1"/><stop offset="1" class="sky2"/></linearGradient></defs>
+    <rect width="800" height="330" fill="url(#sky)"/>
+    <circle class="sun" cx="610" cy="120" r="54" opacity=".9"/>
+    <circle class="sun" cx="610" cy="120" r="76" opacity=".18"/>
+    <rect class="sea2" y="178" width="800" height="152"/>
+    <path class="sea1" d="M0 205 C 160 190, 300 215, 460 200 S 700 185, 800 198 V330 H0z"/>
+    <g class="wave" stroke-width="2" stroke-linecap="round">
+      <path d="M40 190 q12 -6 24 0 t24 0"/><path d="M520 186 q12 -6 24 0 t24 0"/><path d="M690 192 q10 -5 20 0 t20 0"/>
+      <path d="M90 300 q14 -7 28 0 t28 0"/><path d="M600 306 q14 -7 28 0 t28 0"/>
+    </g>
+    <!-- 左右小島 -->
+    <ellipse class="sand" cx="95" cy="246" rx="120" ry="20"/>
+    <ellipse class="sand" cx="720" cy="226" rx="110" ry="16"/>
+    <use href="#i-palm" x="30" y="150" width="60" height="90"/>
+    <use href="#i-palm" x="88" y="168" width="48" height="72"/>
+    <use href="#i-palm" x="690" y="140" width="56" height="84"/>
+    <use href="#i-palm" x="740" y="160" width="44" height="66"/>
+    <!-- 海堤公路 -->
+    <path class="road" stroke-width="26" stroke-linecap="round" d="M120 248 C 300 270, 480 250, 700 226"/>
+    <path class="dash" stroke-width="2.5" stroke-dasharray="12 10" d="M120 248 C 300 270, 480 250, 700 226"/>
+    <!-- 騎士 -->
+    <g transform="translate(372 206)">
+      <g class="inks" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="0" cy="40" r="13"/><circle cx="42" cy="38" r="13"/>
+        <path d="M0 40 L14 20 L34 20 L42 38 M14 20 L22 39 L0 40 M31 13 L36 13 M22 39 L34 20"/>
+        <path d="M18 18 L26 0 L36 14"/>
+      </g>
+      <circle class="coral" cx="28" cy="-8" r="7"/>
+      <path class="coral" d="M20 -10 a9 7 0 0 1 17 -3 z"/>
+    </g>
+    <!-- 鬼蝠魟 -->
+    <path class="lagsoft" opacity=".75" d="M560 285 q22 -16 44 0 q-10 2 -16 10 l-6 14 l-6 -14 q-6 -8 -16 -10z"/>
+    <text x="40" y="44" class="ink" font-size="15" font-family="ui-monospace, Menlo, monospace" letter-spacing="2">0°41′S · 73°10′E</text>
+  </svg>
+  <div class="cover-body">
+    <div class="eyebrow">Pre-trip booklet · CMD728 Breakout 2026-11-09</div>
+    <h1>Addu 環礁單車行</h1>
+    <p class="sub">馬爾地夫最南端，一條連起四個島的海堤公路。自助行 6 天 5 夜，騎車把 Gan、Feydhoo、Maradhoo、Hithadhoo 串起來。</p>
+    <div class="facts">
+      <span class="chip">範例日期 2027/1/18–1/23</span>
+      <span class="chip">騎乘總計 約 50 km</span>
+      <span class="chip">平路・初學者可</span>
+      <span class="chip">每人 約 NT$ 64,700</span>
+      <span class="chip warn">自助行</span>
+    </div>
+    <ol class="toc">
+      <li>為什麼選 Addu</li><li>限制條件</li><li>路線圖</li><li>騎車時段</li><li>每日行程</li><li>住宿</li><li>行李</li><li>每人預算</li><li>預訂時間表</li><li>行前準備</li><li>資料來源</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== 1 ===== -->
+<section class="page">
+  <h2>1　為什麼選 Addu</h2>
+  <p>馬爾地夫由 1,192 個珊瑚島組成。大部分島只有幾百公尺長，騎車繞一圈不到十分鐘，不適合做單車之旅。</p>
+  <p>南端的 Addu 環礁不同。英國在二戰時期把 Gan 當空軍基地，後來修了海堤公路 <b>Link Road</b>，把 Gan、Feydhoo、Maradhoo、Hithadhoo 四個島連成一條路。全長約 14–16 公里，是馬爾地夫最長的道路之一。</p>
+  <p>所以這份行程的「環島」，是沿著環礁的弧線，從最南的 Gan 騎到最北的 Hithadhoo，再騎回來。</p>
+</section>
+
+<!-- ===== 2 ===== -->
+<section class="page">
+  <h2>2　限制條件（Constraints）</h2>
+  <ul class="rules">
+    <li><b>天數</b><span>6 天 5 夜。台灣沒有直飛，去程與回程各花一天轉機。</span></li>
+    <li><b>旅行方式</b><span>自助行。機票、民宿、浮潛自己訂，沒有導遊。</span></li>
+    <li><b>體能</b><span>一般成人。每天騎乘不超過 35 km，全程平路。</span></li>
+    <li><b>季節</b><span>1 月出發。1–3 月是東北季風乾季，雨少。避開齋戒月（2027 年約 2 月上旬到 3 月上旬），那時白天餐廳多數不營業。</span></li>
+    <li><b>高溫</b><span>白天約 30°C、濕度高。只在 06:30–10:00 與 16:00–18:15 騎車。中午室內休息。</span></li>
+    <li><b>交通</b><span>馬爾地夫靠左行駛。騎車靠左。天黑後不騎。</span></li>
+    <li><b>文化</b><span>伊斯蘭國家。當地島嶼禁酒。服裝要遮住肩膀與膝蓋。比基尼只能在指定海灘穿。週五中午禮拜時間，商店暫停營業。</span></li>
+    <li><b>道路</b><span>Link Road 正在改建。出發前向民宿確認哪幾段在施工。</span></li>
+    <li><b>預算</b><span>每人上限 NT$ 65,000（含 10% 預備金）。住民宿，不住度假村。</span></li>
+    <li><b>入境</b><span>抵達前 96 小時內，上網填 IMUGA 旅客申報。護照效期要 6 個月以上。</span></li>
+  </ul>
+</section>
+
+<!-- ===== 3 路線圖 ===== -->
+<section class="page">
+  <h2>3　路線圖</h2>
+  <div class="fig wide">
+    <svg viewBox="0 0 680 380" role="img" aria-label="Addu 環礁路線圖：環礁呈心形，西側弧線由南往北依序是 Gan、Feydhoo、Maradhoo、Hithadhoo，以 Link Road 相連；北端是 Addu 自然公園；環礁中間是潟湖">
+      <rect class="sea2" width="680" height="380" rx="6"/>
+      <!-- 潟湖 -->
+      <path class="sea1" d="M120 300 C 90 200, 150 70, 300 60 C 430 50, 560 110, 570 210 C 580 300, 480 340, 340 335 C 230 332, 150 330, 120 300z"/>
+      <g class="wave" stroke-width="2" stroke-linecap="round"><path d="M300 200 q12 -6 24 0 t24 0"/><path d="M380 250 q12 -6 24 0 t24 0"/><path d="M260 150 q12 -6 24 0 t24 0"/></g>
+      <text x="340" y="210" class="paper" font-size="16" text-anchor="middle" opacity=".85">潟湖 Lagoon</text>
+      <!-- 東側無公路的小島 -->
+      <g class="sand" opacity=".55"><ellipse cx="560" cy="150" rx="22" ry="8" transform="rotate(60 560 150)"/><ellipse cx="575" cy="245" rx="18" ry="7" transform="rotate(95 575 245)"/><ellipse cx="500" cy="320" rx="22" ry="7" transform="rotate(-20 500 320)"/></g>
+      <text x="606" y="200" class="paper" font-size="12" opacity=".8">Hulhudhoo</text>
+      <text x="606" y="216" class="paper" font-size="12" opacity=".8">Meedhoo</text>
+      <text x="606" y="232" class="paper" font-size="11" opacity=".7">（無公路相連）</text>
+      <!-- 有公路的島 -->
+      <g class="sand">
+        <ellipse cx="250" cy="330" rx="46" ry="14" transform="rotate(-8 250 330)"/>
+        <ellipse cx="150" cy="300" rx="34" ry="12" transform="rotate(35 150 300)"/>
+        <ellipse cx="118" cy="232" rx="40" ry="11" transform="rotate(80 118 232)"/>
+        <path d="M118 175 C 112 120, 150 70, 230 52 L 236 66 C 170 86, 140 125, 136 178z"/>
+      </g>
+      <!-- Link Road -->
+      <path class="corals" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 7" d="M268 330 C 200 336, 162 312, 146 292 C 126 266, 118 240, 120 205 C 122 150, 150 95, 228 60"/>
+      <!-- 站點 -->
+      <g>
+        <circle class="coral" cx="268" cy="330" r="8"/>
+        <text x="280" y="352" class="paper" font-size="16" font-weight="700">Gan</text>
+        <text x="280" y="368" class="paper" font-size="11" font-family="ui-monospace, Menlo, monospace">0 km ✈ 機場</text>
+        <circle class="paper" cx="160" cy="306" r="6"/>
+        <text x="20" y="330" class="paper" font-size="15" font-weight="700">Feydhoo</text>
+        <text x="20" y="346" class="paper" font-size="11" font-family="ui-monospace, Menlo, monospace">約 3 km・住宿</text>
+        <circle class="paper" cx="120" cy="236" r="6"/>
+        <text x="20" y="232" class="paper" font-size="15" font-weight="700">Maradhoo</text>
+        <text x="20" y="248" class="paper" font-size="11" font-family="ui-monospace, Menlo, monospace">約 7 km</text>
+        <circle class="paper" cx="128" cy="150" r="6"/>
+        <text x="20" y="146" class="paper" font-size="15" font-weight="700">Hithadhoo</text>
+        <text x="20" y="162" class="paper" font-size="11" font-family="ui-monospace, Menlo, monospace">約 11 km・午餐</text>
+        <circle class="coral" cx="228" cy="60" r="8"/>
+        <text x="244" y="48" class="paper" font-size="15" font-weight="700">Addu 自然公園</text>
+        <text x="244" y="64" class="paper" font-size="11" font-family="ui-monospace, Menlo, monospace">約 15 km・折返點</text>
+      </g>
+      <!-- 鬼蝠魟點 -->
+      <use href="#i-mask" x="470" y="280" width="26" height="26"/>
+      <text x="420" y="276" class="paper" font-size="12">D4 浮潛（地點依業者）</text>
+      <!-- 指北 -->
+      <g transform="translate(630 50)"><path class="paper" d="M0 -22 L8 6 L0 0 L-8 6z"/><text y="22" class="paper" font-size="12" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">N</text></g>
+    </svg>
+  </div>
+  <p class="note">示意圖，不按比例。各島距離是估計值。Link Road 全長資料不一致（14–16 km），以現場里程為準。</p>
+</section>
+
+<!-- ===== 4 騎車時段 ===== -->
+<section class="page">
+  <h2>4　騎車時段</h2>
+  <p>赤道附近的太陽很強。我們把一天分成三段：清晨騎、中午躲、傍晚騎。日落約 18:15，天黑前一定回到民宿。</p>
+  <div class="fig wide">
+    <svg viewBox="0 0 640 140" role="img" aria-label="時段圖：06:30 到 10:00 騎車，10:00 到 16:00 室內休息，16:00 到 18:15 騎車，18:15 日落後不騎">
+      <rect class="lagsoft" x="20" y="40" width="600" height="44" rx="4"/>
+      <!-- 05–20 時，每小時 40px -->
+      <rect class="lag" x="80" y="40" width="140" height="44"/>
+      <rect class="coralsoft" x="220" y="40" width="240" height="44"/>
+      <rect class="lag" x="460" y="40" width="90" height="44"/>
+      <rect class="ink" x="550" y="40" width="70" height="44" opacity=".85"/>
+      <text x="150" y="67" class="paper" font-size="14" text-anchor="middle" font-weight="700">騎車</text>
+      <text x="340" y="67" class="ink" font-size="14" text-anchor="middle">太熱：室內休息、吃飯、浮潛</text>
+      <text x="505" y="67" class="paper" font-size="14" text-anchor="middle" font-weight="700">騎車</text>
+      <text x="585" y="67" class="paper" font-size="13" text-anchor="middle">天黑</text>
+      <g class="muted" font-size="11" font-family="ui-monospace, Menlo, monospace" text-anchor="middle">
+        <text x="20" y="104">05</text><text x="80" y="104">06:30</text><text x="220" y="104">10:00</text><text x="340" y="104">13:00</text><text x="460" y="104">16:00</text><text x="550" y="104">18:15</text><text x="620" y="104">20</text>
+      </g>
+      <use href="#i-sun" x="536" y="6" width="28" height="28"/>
+      <text x="530" y="26" class="muted" font-size="12" text-anchor="end">日落</text>
+      <text x="20" y="128" class="muted" font-size="11">1 月 Addu 日出約 06:15、日落約 18:15（估計）</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ===== 5 每日行程 ===== -->
+<section class="page">
+  <h2>5　每日行程</h2>
+  <p class="note">航班時刻是假設的範例。訂到機票後，把實際時刻填回來再調整。</p>
+
+  <!-- D1 -->
+  <div class="day">
+    <div class="dayhead">
+      <div class="badge"><svg><use href="#i-plane"/></svg></div>
+      <div><h3>D1　台北 → 新加坡 → 馬列</h3><div class="meta">2027/1/18（一）・騎乘 0 km・住 Hulhumalé</div></div>
+    </div>
+    <table class="sched"><tbody>
+      <tr><td class="t">06:30</td><td>到桃園機場報到。</td><td class="how">手機裡存好 IMUGA QR code、民宿訂房確認、回程機票。</td></tr>
+      <tr><td class="t">上午</td><td>飛新加坡（約 4.5 小時）。</td><td class="how">轉機時間至少留 2 小時。</td></tr>
+      <tr><td class="t">下午</td><td>新加坡 → 馬列（約 4.5 小時）。</td><td class="how">馬列比台灣慢 3 小時。手錶調時間。</td></tr>
+      <tr><td class="t">晚上</td><td>抵達 Velana 機場。入境。</td><td class="how">出示護照、IMUGA、住宿證明、回程機票。</td></tr>
+      <tr><td class="t">＋30 分</td><td>機場買當地 SIM 卡。</td><td class="how">入境大廳有電信櫃台（Dhiraagu、Ooredoo）。</td></tr>
+      <tr><td class="t">＋60 分</td><td>到 Hulhumalé 民宿入住。</td><td class="how">計程車約 MVR 80–85，付現。或公車約 MVR 10–20，約 30 分鐘一班。有免費接機的民宿就用接機。</td></tr>
+    </tbody></table>
+    <div class="tip"><b>今晚要做：</b>把大行李箱整理好，寄放在民宿（見第 7 節）。問民宿隔天早上幾點能送機。國內線要提早 1.5 小時到。</div>
+  </div>
+
+  <!-- D2 -->
+  <div class="day">
+    <div class="dayhead">
+      <div class="badge"><svg><use href="#i-bike"/></svg></div>
+      <div><h3>D2　飛到 Gan，暖身騎 Gan 島</h3><div class="meta">2027/1/19（二）・騎乘 <b>約 8 km</b>・住 Feydhoo</div></div>
+    </div>
+    <table class="sched"><tbody>
+      <tr><td class="t">05:30</td><td>起床、退房。大行李箱交給櫃台寄放，拿收據。</td><td class="how">只帶小行李去 Addu。早餐請民宿打包，或在機場買。</td></tr>
+      <tr><td class="t">06:00</td><td>到 Velana 機場國內線航廈。</td><td class="how">民宿送機或計程車。</td></tr>
+      <tr><td class="t">07:30</td><td>馬列 → Gan（約 1 小時 15 分）。</td><td class="how">國內線行李限額比國際線少。訂票時確認公斤數。</td></tr>
+      <tr><td class="t">09:00</td><td>抵達 Gan 機場。</td><td class="how">民宿接機到 Feydhoo（約 3 km）。</td></tr>
+      <tr><td class="t">09:30</td><td>寄放行李。領單車、試騎。</td><td class="how">檢查煞車、胎壓、座椅高度、車燈、鎖。拍照記錄車況。</td></tr>
+      <tr><td class="t">10:30</td><td>喝飲料、休息。</td><td class="how">Feydhoo 的 Kalhibih Drinks。</td></tr>
+      <tr><td class="t">12:00</td><td>午餐。</td><td class="how">Feydhoo 的 TATSO Restaurant。</td></tr>
+      <tr><td class="t">13:00</td><td>入住、午睡。</td><td class="how">避開中午日曬。</td></tr>
+      <tr class="ride"><td class="t">16:00</td><td>騎 Gan 島：英國戰爭紀念碑 → 舊皇家空軍基地建築 → Equator Village 一帶。</td><td class="how">Feydhoo → Gan 約 3 km。全程平路。</td></tr>
+      <tr class="ride"><td class="t">17:45</td><td>在海堤看夕陽。</td><td class="how">日落約 18:15。</td></tr>
+      <tr><td class="t">18:30</td><td>騎回民宿。</td><td class="how">天黑前到。</td></tr>
+      <tr><td class="t">19:00</td><td>晚餐。</td><td class="how">Feydhoo 的 Elly Bistro 或民宿附近。</td></tr>
+    </tbody></table>
+    <div class="tip"><b>今晚要做：</b>問民宿明天 Link Road 有沒有施工封路。水壺裝滿冰水放冰箱。</div>
+  </div>
+
+  <!-- D3 -->
+  <div class="day">
+    <div class="dayhead">
+      <div class="badge"><svg><use href="#i-bike"/></svg></div>
+      <div><h3>D3　主行程：Link Road 全線來回</h3><div class="meta">2027/1/20（三）・騎乘 <b>約 30–35 km</b>・住 Feydhoo</div></div>
+    </div>
+    <table class="sched"><tbody>
+      <tr><td class="t">05:45</td><td>起床。擦防曬、裝水 1.5 L。</td><td class="how">帶現金 MVR、手機充飽、行動電源。</td></tr>
+      <tr class="ride"><td class="t">06:30</td><td>從 Feydhoo 往北出發。</td><td class="how">靠左騎。兩人一前一後，不並排。</td></tr>
+      <tr class="ride"><td class="t">07:00</td><td>經過 Maradhoo 海堤。</td><td class="how">左邊外海、右邊潟湖。停下來拍照。</td></tr>
+      <tr><td class="t">07:45</td><td>早餐：當地奶茶與點心。</td><td class="how">主路邊的 Just Tea（沒有英文招牌）。</td></tr>
+      <tr class="ride"><td class="t">08:30</td><td>進入 Hithadhoo，沿主路往北。</td><td class="how">Hithadhoo 是 Addu 最大的島，車比較多，注意機車。</td></tr>
+      <tr><td class="t">09:15</td><td>Addu 自然公園：濕地步道、觀鳥、看海岸。</td><td class="how">北端折返點。依現場公告決定要不要划獨木舟。</td></tr>
+      <tr><td class="t">10:45</td><td>逛 Hithadhoo 市場。</td><td class="how">平日上午有鮮魚和當地蔬果。</td></tr>
+      <tr><td class="t">11:30</td><td>午餐。</td><td class="how">Suvadive Cafe 或 Two Star Dine。小店多收現金。</td></tr>
+      <tr><td class="t">12:30</td><td>室內避暑：咖啡店、超市補水。</td><td class="how">不要在正中午騎車。</td></tr>
+      <tr class="ride"><td class="t">16:00</td><td>沿原路往南騎回。</td><td class="how">回程約 15 km，約 1 小時 15 分。</td></tr>
+      <tr class="ride"><td class="t">17:30</td><td>回到 Feydhoo。</td><td class="how">還有體力就騎到 Gan 海堤看夕陽。</td></tr>
+      <tr><td class="t">19:00</td><td>晚餐。</td><td class="how">DeAval（印度菜，套餐 thali）。</td></tr>
+    </tbody></table>
+    <div class="tip"><b>備案：</b>下雨或太累，就騎到 Maradhoo 折返（來回約 14 km），剩下的路段改搭計程車去 Hithadhoo。</div>
+  </div>
+
+  <!-- D4 -->
+  <div class="day">
+    <div class="dayhead">
+      <div class="badge"><svg><use href="#i-mask"/></svg></div>
+      <div><h3>D4　浮潛＋傍晚短騎</h3><div class="meta">2027/1/21（四）・騎乘 <b>約 10 km</b>・住 Feydhoo</div></div>
+    </div>
+    <table class="sched"><tbody>
+      <tr><td class="t">07:30</td><td>早餐。</td><td class="how">在民宿吃。</td></tr>
+      <tr><td class="t">08:30</td><td>到潛水中心集合。</td><td class="how">Gan 的 Equator Village 或 Aquaventure 一類的潛水中心。至少前一天預約。</td></tr>
+      <tr><td class="t">09:00</td><td>浮潛船出海。</td><td class="how">Maa Kandu 鬼蝠魟點：潮水對時，浮潛也可能看到鬼蝠魟。水流強，穿救生衣，跟緊嚮導。</td></tr>
+      <tr><td class="t">12:00</td><td>回港。</td><td class="how">British Loyalty 沉船在水下 33 m，是潛水點，浮潛看不到。</td></tr>
+      <tr><td class="t">12:30</td><td>午餐。</td><td class="how">Gan 或 Feydhoo。</td></tr>
+      <tr><td class="t">13:30</td><td>休息、洗衣、整理行李。</td><td class="how">明天要搭飛機，先分好託運和隨身行李。</td></tr>
+      <tr class="ride"><td class="t">16:30</td><td>短騎：Feydhoo → Maradhoo 海堤，折返。</td><td class="how">約 10 km。沿路找喜歡的拍照點。</td></tr>
+      <tr><td class="t">18:00</td><td>還單車、結清租金。</td><td class="how">對照 D2 拍的車況照片。</td></tr>
+      <tr><td class="t">19:00</td><td>晚餐。</td><td class="how">最後一晚在 Addu，選前兩天最喜歡的店。</td></tr>
+    </tbody></table>
+    <div class="tip"><b>海上規則：</b>不踩、不摸珊瑚。不追鬼蝠魟、不摸海龜。只用珊瑚礁友善的防曬乳。</div>
+  </div>
+
+  <!-- D5 -->
+  <div class="day">
+    <div class="dayhead">
+      <div class="badge"><svg><use href="#i-sun"/></svg></div>
+      <div><h3>D5　Gan → 馬列，Hulhumalé 海灘</h3><div class="meta">2027/1/22（五）・騎乘 0 km・住 Hulhumalé</div></div>
+    </div>
+    <table class="sched"><tbody>
+      <tr><td class="t">08:00</td><td>早餐、退房。</td><td class="how">付清房費、綠色稅。</td></tr>
+      <tr><td class="t">09:30</td><td>民宿送機到 Gan 機場。</td><td class="how">國內線提早 1.5 小時到。</td></tr>
+      <tr><td class="t">11:00</td><td>Gan → 馬列（約 1 小時 15 分）。</td><td class="how">起飛前在 Gan 機場的 South Land Restaurant 吃早午餐。</td></tr>
+      <tr><td class="t">12:30</td><td>回到 Hulhumalé 民宿，領回寄放的大行李箱。</td><td class="how">今天是週五。中午前後是禮拜時間，很多店暫停營業。</td></tr>
+      <tr><td class="t">14:30</td><td>午餐。</td><td class="how">禮拜時間結束後，店家陸續開門。</td></tr>
+      <tr><td class="t">16:00</td><td>Hulhumalé 海灘散步、游泳。</td><td class="how">穿著要遮肩遮膝。比基尼只在指定區域。</td></tr>
+      <tr><td class="t">18:00</td><td>看最後一次夕陽。</td><td class="how"></td></tr>
+      <tr><td class="t">19:00</td><td>晚餐、買伴手禮。</td><td class="how">當地鮪魚製品是常見伴手禮。</td></tr>
+      <tr><td class="t">21:00</td><td>整理行李。填離境 IMUGA。</td><td class="how">問民宿明天送機時間。</td></tr>
+    </tbody></table>
+  </div>
+
+  <!-- D6 -->
+  <div class="day">
+    <div class="dayhead">
+      <div class="badge"><svg><use href="#i-home"/></svg></div>
+      <div><h3>D6　馬列 → 新加坡 → 台北</h3><div class="meta">2027/1/23（六）・騎乘 0 km</div></div>
+    </div>
+    <table class="sched"><tbody>
+      <tr><td class="t">起飛−3h</td><td>到 Velana 機場國際線報到。</td><td class="how">計程車約 MVR 80–85，或民宿送機。剩下的 MVR 在機場花掉。</td></tr>
+      <tr><td class="t">白天</td><td>馬列 → 新加坡 → 台北。</td><td class="how">抵達台北的時間依實際航班，可能是深夜。</td></tr>
+    </tbody></table>
+  </div>
+</section>
+
+<!-- ===== 6 住宿 ===== -->
+<section class="page">
+  <h2>6　住宿</h2>
+  <p>原則：全程只住兩個地方，不每天換民宿。行李放在民宿，每天輕裝騎車。兩人住一間，房價對分。</p>
+  <div class="tablewrap"><table class="stay">
+    <thead><tr><th>晚</th><th>地點</th><th>為什麼住這裡</th><th>例子（訂房前再比價）</th></tr></thead>
+    <tbody>
+      <tr><td>D1</td><td>Hulhumalé</td><td>機場旁的人工島。深夜抵達，車程短。</td><td>Express Inn（列出免費接機）</td></tr>
+      <tr><td>D2–D4<br>3 晚</td><td>Feydhoo</td><td>在 Link Road 南段，離 Gan 機場約 3 km。往北騎、往南逛都方便。</td><td>Muladdu Inn（有單車租借、機場接送）；Lodger Guest House（提供單車）</td></tr>
+      <tr><td>D5</td><td>Hulhumalé</td><td>隔天搭國際線。住同一間，第一晚就能先寄放用不到的行李。</td><td>同 D1</td></tr>
+    </tbody>
+  </table></div>
+  <h3 style="margin-top:16px">訂房前問民宿 5 件事</h3>
+  <ol style="margin:6px 0 0;padding-left:1.2em">
+    <li>房價有沒有含稅與服務費（觀光商品服務稅 17%）。</li>
+    <li>綠色稅 USD 6／晚是另收，還是含在房價。</li>
+    <li>有沒有單車、一天多少錢、有沒有安全帽。</li>
+    <li>有沒有機場接送、要不要錢。</li>
+    <li>取消規定。國內線停飛或改時間時，能不能免費改日期。</li>
+  </ol>
+  <p class="note" style="margin-top:10px">不住度假村：度假村綠色稅 USD 12／晚，是民宿的兩倍，房價也高很多。度假村在獨立小島上，不能騎車出門。Hithadhoo 的民宿（例如 Rekidhiye Inn）也可以，但離 Gan 機場較遠，D3 的路線要改成由北往南騎。</p>
+</section>
+
+<!-- ===== 7 行李 ===== -->
+<section class="page">
+  <h2>7　行李</h2>
+  <p>原則：大行李箱留在 Hulhumalé，小包去 Addu，騎車只背小背包。所以 D1 和 D5 要訂同一間民宿。</p>
+  <div class="fig wide">
+    <svg viewBox="0 0 640 170" role="img" aria-label="行李流程：大行李箱 D1 寄放在 Hulhumalé 民宿，D5 領回；小行李搭國內線去 Addu，放在 Feydhoo 民宿；騎車時只背小背包">
+      <!-- 大箱 -->
+      <g transform="translate(40 30)">
+        <rect class="lag" x="0" y="14" width="64" height="86" rx="8"/><rect class="paper" x="22" y="4" width="20" height="12" rx="3" opacity=".9"/>
+        <path class="dash" stroke-width="3" d="M16 30v56M48 30v56"/>
+        <text x="32" y="122" class="ink" font-size="13" text-anchor="middle" font-weight="700">大行李箱</text>
+        <text x="32" y="138" class="muted" font-size="11" text-anchor="middle">留在 Hulhumalé</text>
+      </g>
+      <!-- 小包 -->
+      <g transform="translate(270 50)">
+        <rect class="coral" x="0" y="10" width="56" height="58" rx="8"/><path class="corals" stroke-width="4" d="M16 10 v-8 h24 v8"/>
+        <text x="28" y="102" class="ink" font-size="13" text-anchor="middle" font-weight="700">小行李 ≤ 20 kg</text>
+        <text x="28" y="118" class="muted" font-size="11" text-anchor="middle">搭國內線去 Addu</text>
+      </g>
+      <!-- 背包 -->
+      <g transform="translate(500 62)">
+        <path class="lag" d="M6 14 q22 -16 44 0 v42 a6 6 0 0 1 -6 6 h-32 a6 6 0 0 1 -6 -6z"/><rect class="paper" x="16" y="30" width="24" height="14" rx="3" opacity=".85"/>
+        <text x="28" y="90" class="ink" font-size="13" text-anchor="middle" font-weight="700">小背包 10–15 L</text>
+        <text x="28" y="106" class="muted" font-size="11" text-anchor="middle">騎車時背</text>
+      </g>
+      <g class="inks" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 5"><path d="M124 86 H250"/><path d="M350 86 H480"/></g>
+      <text x="187" y="76" class="lag" font-size="12" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">D2 分開</text>
+      <text x="415" y="76" class="lag" font-size="12" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">每天騎車</text>
+      <text x="187" y="108" class="muted" font-size="11" text-anchor="middle">D5 會合</text>
+    </svg>
+  </div>
+  <div class="tablewrap"><table class="stay">
+    <thead><tr><th>哪一件</th><th>放什麼</th><th>放在哪裡</th></tr></thead>
+    <tbody>
+      <tr><td><b>大行李箱</b></td><td>回程衣服、伴手禮空間、用不到的東西。</td><td>D1 晚上寄放在 Hulhumalé 民宿，D5 領回。</td></tr>
+      <tr><td><b>小行李</b><br>（每人 1 件）</td><td>4 天的衣服、泳衣、防曬乳、盥洗用品、充電器、安全帽、車燈。</td><td>國內線託運。放在 Feydhoo 民宿。</td></tr>
+      <tr><td><b>小背包</b></td><td>護照、現金、手機、行動電源、1.5 L 水、防曬乳、輕便雨衣、防水手機袋。</td><td>國內線當手提行李。騎車時背在身上。</td></tr>
+    </tbody>
+  </table></div>
+  <h3 style="margin-top:16px">要注意的事</h3>
+  <ul style="margin:6px 0 0;padding-left:1.2em">
+    <li><b>國內線限額：</b>託運約 20 kg、手提約 5 kg（有來源寫託運 25 kg，以訂票頁為準）。超重每公斤 MVR 70。</li>
+    <li><b>寄放前先問：</b>訂房時用 Email 問 Hulhumalé 民宿能不能寄放 4 天、要不要錢。有些民宿櫃台不是 24 小時。</li>
+    <li><b>貴重物品不寄放：</b>護照、現金、信用卡、電子產品都隨身帶。</li>
+    <li><b>寄放的箱子：</b>上鎖、掛名牌、拍照，拿寄放收據。</li>
+    <li><b>民宿不能寄放：</b>全部帶去 Addu，每人行李控制在 20 kg 內。</li>
+    <li><b>國際線託運：</b>依航空公司規定，訂機票時確認。</li>
+  </ul>
+</section>
+
+<!-- ===== 8 預算 ===== -->
+<section class="page">
+  <h2>8　每人預算</h2>
+  <div class="tablewrap"><table class="money">
+    <thead><tr><th>項目</th><th>計算方式</th><th class="n">NT$</th><th>依據</th></tr></thead>
+    <tbody>
+      <tr><td>國際機票</td><td>台北 ⇄ 馬列，經濟艙轉機</td><td class="n">28,000</td><td><span class="tag">估計</span></td></tr>
+      <tr><td>國內線機票</td><td>馬列 ⇄ Gan 來回 USD 360</td><td class="n">11,520</td><td><span class="tag">查價</span></td></tr>
+      <tr><td>住宿</td><td>5 晚 × USD 50（兩人一房、含稅，每人）</td><td class="n">8,000</td><td><span class="tag">查價</span></td></tr>
+      <tr><td>綠色稅</td><td>民宿 USD 6 × 5 晚</td><td class="n">960</td><td><span class="tag">官方</span></td></tr>
+      <tr><td>單車租金</td><td>MVR 100 × 3 天</td><td class="n">623</td><td><span class="tag">查價</span></td></tr>
+      <tr><td>浮潛船</td><td>半日 USD 60</td><td class="n">1,920</td><td><span class="tag">估計</span></td></tr>
+      <tr><td>餐費＋市區交通</td><td>USD 30 × 6 天</td><td class="n">5,760</td><td><span class="tag">估計</span></td></tr>
+      <tr><td>旅平險＋雜支</td><td>固定金額</td><td class="n">2,000</td><td><span class="tag">估計</span></td></tr>
+      <tr class="total"><td>小計</td><td></td><td class="n">58,783</td><td></td></tr>
+      <tr class="reserve"><td>含 10% 預備金</td><td>小計 × 1.1</td><td class="n">64,661</td><td></td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">匯率：1 USD = 32 TWD；1 USD = 15.42 MVR。國際機票依季節差異大，訂票前再查一次。浮潛價格要向潛水中心詢價。</p>
+</section>
+
+<!-- ===== 8 預訂時間表 ===== -->
+<section class="page">
+  <h2>9　自助行預訂時間表</h2>
+  <ol class="timeline">
+    <li><span>出發前 3 個月</span><span>訂國際機票。再訂馬列 ⇄ Gan 國內線，班次少，要早訂。先查這條航線目前有沒有直飛。</span></li>
+    <li><span>出發前 2 個月</span><span>訂民宿：Hulhumalé 2 晚、Feydhoo 3 晚。用 Email 確認單車與接送。</span></li>
+    <li><span>出發前 2 週</span><span>買旅平險（含海外醫療與水上活動）。寫信給潛水中心預約 D4 浮潛，問價格與集合地點。</span></li>
+    <li><span>出發前 96 小時內</span><span>上網填 IMUGA 入境申報，存 QR code。</span></li>
+    <li><span>出發前 1 天</span><span>查天氣。問民宿 Link Road 施工狀況。換少量美金現鈔。</span></li>
+  </ol>
+</section>
+
+<!-- ===== 9 行前準備 ===== -->
+<section class="page">
+  <h2>10　行前準備</h2>
+  <div class="cols">
+    <div>
+      <h3>行李清單</h3>
+      <ul class="check" id="packing">
+        <li><label><input type="checkbox" id="p1">護照（效期 6 個月以上）</label></li>
+        <li><label><input type="checkbox" id="p2">IMUGA 申報（抵達前 96 小時內）</label></li>
+        <li><label><input type="checkbox" id="p3">自備安全帽或輕量頭盔</label></li>
+        <li><label><input type="checkbox" id="p4">單車前燈、後燈</label></li>
+        <li><label><input type="checkbox" id="p5">1.5 L 水壺（每人）</label></li>
+        <li><label><input type="checkbox" id="p6">珊瑚礁友善防曬乳、袖套</label></li>
+        <li><label><input type="checkbox" id="p7">遮肩遮膝的透氣衣褲</label></li>
+        <li><label><input type="checkbox" id="p8">美金現鈔（小額）</label></li>
+        <li><label><input type="checkbox" id="p9">英式三孔轉接頭</label></li>
+        <li><label><input type="checkbox" id="p10">旅平險、海外醫療險</label></li>
+        <li><label><input type="checkbox" id="p11">行動電源、防水手機袋</label></li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+      <div>
+        <h3>三句 Dhivehi</h3>
+        <div class="phr">
+          <span class="dv">Assalaamu alaikum</span><span>你好</span>
+          <span class="dv">Shukuriyaa</span><span>謝謝</span>
+          <span class="dv">Kihaa vareh?</span><span>多少錢？</span>
+        </div>
+      </div>
+      <div>
+        <h3>緊急電話</h3>
+        <div class="phr">
+          <span class="dv">119</span><span>警察</span>
+          <span class="dv">102</span><span>救護車</span>
+          <span class="dv">118</span><span>消防</span>
+          <span class="dv">+886-800-085-095</span><span>外交部旅外急難專線</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10 來源 ===== -->
+<section class="page">
+  <h2>11　資料來源</h2>
+  <ul class="src">
+    <li>題目：CMD728 投影片 <i>20261109 GenAI.pptx</i> 第 11 張 Breakout Activities</li>
+    <li><a href="https://www.discoveraddu.com/activities/biking/">Discover Addu – Biking</a>；<a href="https://discoveraddu.com/food/restaurants-cafes">Discover Addu – Restaurants &amp; Cafes</a></li>
+    <li><a href="https://www.lonelyplanet.com/maldives/southern-atolls/addu-atoll/restaurants">Lonely Planet – Addu Atoll restaurants</a></li>
+    <li><a href="https://en.wikivoyage.org/wiki/Gan">Wikivoyage – Gan</a></li>
+    <li><a href="https://all-addu.pages.dev/discover/addu-nature-park/plan">Addu Nature Park 單車租借</a></li>
+    <li><a href="https://atolltimes.mv/post/news/11870">Atoll Times – Link Road 改建工程</a></li>
+    <li><a href="https://www.kayak.com/flight-routes/Male-MLE/Addu-City-Gan-Seenu-GAN">KAYAK – 馬列⇄Gan 航線</a></li>
+    <li><a href="https://psmnews.mv/en/176372">PSM News – 綠色稅</a></li>
+    <li><a href="https://maldives-compass.pages.dev/places/hulhumale/how-to-get-there/index.html">機場到 Hulhumalé 交通</a>；<a href="https://www.macl.aero/passengers/information/touristinformation">MACL 旅客資訊</a></li>
+    <li><a href="https://travel.padi.com/diving-in/maldives/addu-atoll">PADI – Addu 潛點</a>；<a href="https://zubludiving.com/resort/equator-village">Equator Village 潛水中心</a></li>
+    <li><a href="https://amaldives.com/guesthouses/rekidhiye-inn">aMaldives – Addu 民宿房價</a>；<a href="https://amaldives.com/blog/guesthouse-lodger-guest-house">Lodger Guest House</a></li>
+    <li><a href="https://travelocity.com/Maldives-Guest-Houses.d109-aaGuestHouses.Travel-Guide-Accommodation">Travelocity – Hulhumalé 民宿</a></li>
+    <li><a href="https://maldivian.aero/flying-with-us/before-you-fly/baggage-policy.html">Maldivian – Baggage Policy</a>；<a href="https://amaldives.com/blog/maldives-domestic-flights-guide-2026">aMaldives – 國內線指南</a></li>
+  </ul>
+</section>
+
+</div>
+
+
+<script>
+(function(){
+  var KEY='addu-packing';
+  var saved={};
+  try{ saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ saved={}; }
+  document.querySelectorAll('#packing input').forEach(function(box){
+    if(saved[box.id]) box.checked=true;
+    box.addEventListener('change',function(){
+      saved[box.id]=box.checked;
+      try{ localStorage.setItem(KEY,JSON.stringify(saved)); }catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>
