@@ -106,6 +106,12 @@ tr.reserve td{color:var(--coral);font-weight:700}
 .phr{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.95rem}
 .phr .dv{font-family:var(--mono);color:var(--lagoon)}
 .src{font-size:.85rem;color:var(--muted);padding-left:1.2em}
+.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0 6px}
+figure.photo{margin:0;min-width:0}
+figure.photo img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:4px;background:var(--lagoon-soft)}
+figure.photo figcaption{font-size:.8rem;color:var(--muted);margin-top:6px;line-height:1.55}
+.photos.one{grid-template-columns:1fr}.photos.one img{aspect-ratio:16/9}
+table.stay td a{word-break:break-all}
 </style>
 <style>
 :root{--mono:ui-monospace,"SF Mono",Menlo,monospace}
@@ -113,6 +119,7 @@ tr.reserve td{color:var(--coral);font-weight:700}
 .topbar{max-width:780px;margin:0 auto 14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.9rem}
 .topbar a{text-decoration:none;font-weight:600}
 .topbar a:hover{text-decoration:underline}
+.map{margin:0}.map img{display:block;width:100%;height:auto;border-radius:4px;border:1px solid var(--line)}.map figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
 .about-work{font-size:.9rem;color:var(--muted);border-left:3px solid var(--lagoon);padding-left:12px;margin:0}
 </style>
 </head>
@@ -130,7 +137,7 @@ tr.reserve td{color:var(--coral);font-weight:700}
   </symbol>
 </svg>
 <div class="book">
-<p class="about-work"><b>課堂作業。</b>CMD728 生成式人工智慧，2026-11-09 課堂分組活動。題目：設計一趟環島單車之旅——定義限制條件、排出行程、估算每人預算、做一本行前小冊子。以生成式 AI 協作完成；價格與事實依第 11 節的來源查核。</p>
+<p class="about-work"><b>課堂作業。</b>CMD728 生成式人工智慧，2026-11-09 課堂分組活動。題目：設計一趟環島單車之旅——定義限制條件、排出行程、估算每人預算、做一本行前小冊子。以生成式 AI 協作完成；價格與事實依第 12 節的來源查核。</p>
 
 <!-- ===== 封面 ===== -->
 <section class="page cover">
@@ -181,10 +188,12 @@ tr.reserve td{color:var(--coral);font-weight:700}
       <span class="chip warn">自助行</span>
     </div>
     <ol class="toc">
-      <li>為什麼選 Addu</li><li>限制條件</li><li>路線圖</li><li>騎車時段</li><li>每日行程</li><li>住宿</li><li>行李</li><li>每人預算</li><li>預訂時間表</li><li>行前準備</li><li>資料來源</li>
+      <li>為什麼選 Addu</li><li>限制條件</li><li>路線圖</li><li>騎車時段</li><li>每日行程</li><li>住宿</li><li>行李</li><li>每人預算</li><li>預訂時間表</li><li>行前準備</li><li>聯絡與查證</li><li>資料來源</li>
     </ol>
   </div>
 </section>
+
+<section class="page"><h2>行程地圖一覽</h2><figure class="map"><a href="addu_map.png"><img src="addu_map.png" alt="Addu 環礁行程地圖：左邊是環礁與 Link Road 騎乘路線，標出 Gan、Feydhoo、Maradhoo、Hithadhoo 與自然公園；右邊是天數、騎乘距離、每日行程、每人預算與租借服務點。" width="1840" height="1160"></a><figcaption>一頁看完整趟行程。點圖看大圖。</figcaption></figure></section>
 
 <!-- ===== 1 ===== -->
 <section class="page">
@@ -192,6 +201,7 @@ tr.reserve td{color:var(--coral);font-weight:700}
   <p>馬爾地夫由 1,192 個珊瑚島組成。大部分島只有幾百公尺長，騎車繞一圈不到十分鐘，不適合做單車之旅。</p>
   <p>南端的 Addu 環礁不同。英國在二戰時期把 Gan 當空軍基地，後來修了海堤公路 <b>Link Road</b>，把 Gan、Feydhoo、Maradhoo、Hithadhoo 四個島連成一條路。全長約 14–16 公里，是馬爾地夫最長的道路之一。</p>
   <p>所以這份行程的「環島」，是沿著環礁的弧線，從最南的 Gan 騎到最北的 Hithadhoo，再騎回來。</p>
+  <div class="photos one"><figure class="photo"><img src="images/link_road.jpg" alt="Gan 端的海堤公路入口（2016 年）。Link Road 從這裡往北連到 Feydhoo。" loading="lazy" width="1024" height="768"><figcaption>Gan 端的海堤公路入口（2016 年）。Link Road 從這裡往北連到 Feydhoo。<br>攝影：David Stanley｜CC BY 2.0｜<a href="https://commons.wikimedia.org/wiki/File:Gan_Causeway_(32966136766).jpg">Wikimedia Commons</a></figcaption></figure></div>
 </section>
 
 <!-- ===== 2 ===== -->
@@ -287,6 +297,7 @@ tr.reserve td{color:var(--coral);font-weight:700}
       <text x="20" y="128" class="muted" font-size="11">1 月 Addu 日出約 06:15、日落約 18:15（估計）</text>
     </svg>
   </div>
+  <div class="photos one"><figure class="photo"><img src="images/gan_sunrise.jpg" alt="Gan 的日出（2007 年）。清晨是騎車最舒服的時段。" loading="lazy" width="1024" height="768"><figcaption>Gan 的日出（2007 年）。清晨是騎車最舒服的時段。<br>攝影：DD (Flickr, Malé)｜CC BY-SA 2.0｜<a href="https://commons.wikimedia.org/wiki/File:Sunrise_@_Gan_(844431008).jpg">Wikimedia Commons</a></figcaption></figure></div>
 </section>
 
 <!-- ===== 5 每日行程 ===== -->
@@ -308,6 +319,7 @@ tr.reserve td{color:var(--coral);font-weight:700}
       <tr><td class="t">＋30 分</td><td>機場買當地 SIM 卡。</td><td class="how">入境大廳有電信櫃台（Dhiraagu、Ooredoo）。</td></tr>
       <tr><td class="t">＋60 分</td><td>到 Hulhumalé 民宿入住。</td><td class="how">計程車約 MVR 80–85，付現。或公車約 MVR 10–20，約 30 分鐘一班。有免費接機的民宿就用接機。</td></tr>
     </tbody></table>
+    <div class="photos"><figure class="photo"><img src="images/velana_airport.jpg" alt="從空中看 Velana 機場島（2015 年）。" loading="lazy" width="1024" height="682"><figcaption>從空中看 Velana 機場島（2015 年）。<br>攝影：Simon_sees｜CC BY 2.0｜<a href="https://commons.wikimedia.org/wiki/File:Velana_International_Airport,_Male,_Maldives.jpg">Wikimedia Commons</a></figcaption></figure></div>
     <div class="tip"><b>今晚要做：</b>把大行李箱整理好，寄放在民宿（見第 7 節）。問民宿隔天早上幾點能送機。國內線要提早 1.5 小時到。</div>
   </div>
 
@@ -331,6 +343,7 @@ tr.reserve td{color:var(--coral);font-weight:700}
       <tr><td class="t">18:30</td><td>騎回民宿。</td><td class="how">天黑前到。</td></tr>
       <tr><td class="t">19:00</td><td>晚餐。</td><td class="how">Feydhoo 的 Elly Bistro 或民宿附近。</td></tr>
     </tbody></table>
+    <div class="photos"><figure class="photo"><img src="images/gan_airport.jpg" alt="Gan 國際機場正門（2024 年 7 月）。D2 在這裡下飛機。" loading="lazy" width="1024" height="1024"><figcaption>Gan 國際機場正門（2024 年 7 月）。D2 在這裡下飛機。<br>攝影：Unilandofma｜CC BY-SA 4.0｜<a href="https://commons.wikimedia.org/wiki/File:Front_view_of_Gan_International_Airport.jpg">Wikimedia Commons</a></figcaption></figure><figure class="photo"><img src="images/domestic_plane.jpg" alt="在 Gan 機場降落的國內線螺旋槳飛機（2007 年，現在的機型與塗裝可能不同）。" loading="lazy" width="1024" height="818"><figcaption>在 Gan 機場降落的國內線螺旋槳飛機（2007 年，現在的機型與塗裝可能不同）。<br>攝影：DD (Flickr, Malé)｜CC BY-SA 2.0｜<a href="https://commons.wikimedia.org/wiki/File:8Q-IAQ_(638190811).jpg">Wikimedia Commons</a></figcaption></figure><figure class="photo"><img src="images/war_memorial.jpg" alt="Gan 島的英國戰爭紀念碑，旁邊有二戰時期的砲（2016 年）。" loading="lazy" width="1024" height="768"><figcaption>Gan 島的英國戰爭紀念碑，旁邊有二戰時期的砲（2016 年）。<br>攝影：David Stanley｜CC BY 2.0｜<a href="https://commons.wikimedia.org/wiki/File:British_War_Memorial_(32169693594).jpg">Wikimedia Commons</a></figcaption></figure></div>
     <div class="tip"><b>今晚要做：</b>問民宿明天 Link Road 有沒有施工封路。水壺裝滿冰水放冰箱。</div>
   </div>
 
@@ -347,13 +360,15 @@ tr.reserve td{color:var(--coral);font-weight:700}
       <tr><td class="t">07:45</td><td>早餐：當地奶茶與點心。</td><td class="how">主路邊的 Just Tea（沒有英文招牌）。</td></tr>
       <tr class="ride"><td class="t">08:30</td><td>進入 Hithadhoo，沿主路往北。</td><td class="how">Hithadhoo 是 Addu 最大的島，車比較多，注意機車。</td></tr>
       <tr><td class="t">09:15</td><td>Addu 自然公園：濕地步道、觀鳥、看海岸。</td><td class="how">北端折返點。依現場公告決定要不要划獨木舟。</td></tr>
-      <tr><td class="t">10:45</td><td>逛 Hithadhoo 市場。</td><td class="how">平日上午有鮮魚和當地蔬果。</td></tr>
-      <tr><td class="t">11:30</td><td>午餐。</td><td class="how">Suvadive Cafe 或 Two Star Dine。小店多收現金。</td></tr>
+      <tr><td class="t">10:30</td><td>看 Medhe Miskih 古清真寺墓園。</td><td class="how">在外圍參觀。要進去先問當地人。穿著遮肩遮膝，安靜。</td></tr>
+      <tr><td class="t">11:00</td><td>逛 Hithadhoo 市場。</td><td class="how">平日上午有鮮魚和當地蔬果。</td></tr>
+      <tr><td class="t">11:45</td><td>午餐。</td><td class="how">Suvadive Cafe 或 Two Star Dine。小店多收現金。</td></tr>
       <tr><td class="t">12:30</td><td>室內避暑：咖啡店、超市補水。</td><td class="how">不要在正中午騎車。</td></tr>
       <tr class="ride"><td class="t">16:00</td><td>沿原路往南騎回。</td><td class="how">回程約 15 km，約 1 小時 15 分。</td></tr>
       <tr class="ride"><td class="t">17:30</td><td>回到 Feydhoo。</td><td class="how">還有體力就騎到 Gan 海堤看夕陽。</td></tr>
       <tr><td class="t">19:00</td><td>晚餐。</td><td class="how">DeAval（印度菜，套餐 thali）。</td></tr>
     </tbody></table>
+    <div class="photos"><figure class="photo"><img src="images/nature_park.jpg" alt="Addu 自然公園（Eydhigali Kilhi 與 Koattey 保護區）的木棧道與賞鳥屋（2016 年）。" loading="lazy" width="1024" height="768"><figcaption>Addu 自然公園（Eydhigali Kilhi 與 Koattey 保護區）的木棧道與賞鳥屋（2016 年）。<br>攝影：David Stanley｜CC BY 2.0｜<a href="https://commons.wikimedia.org/wiki/File:Eydhigali_Kilhi_and_Koattey_Natural_Protected_Area_(33028363835).jpg">Wikimedia Commons</a></figcaption></figure><figure class="photo"><img src="images/addu_beach.jpg" alt="自然公園北端未開發的海灘。岸邊是礁岩與碎珊瑚（2016 年）。" loading="lazy" width="1024" height="768"><figcaption>自然公園北端未開發的海灘。岸邊是礁岩與碎珊瑚（2016 年）。<br>攝影：David Stanley｜CC BY 2.0｜<a href="https://commons.wikimedia.org/wiki/File:Addu_Atoll_Beach_(32220015923).jpg">Wikimedia Commons</a></figcaption></figure><figure class="photo"><img src="images/hithadhoo_mosque.jpg" alt="Hithadhoo 的 Medhe Miskih 古清真寺墓園，裡面有許多古老墓碑（2016 年）。" loading="lazy" width="1024" height="768"><figcaption>Hithadhoo 的 Medhe Miskih 古清真寺墓園，裡面有許多古老墓碑（2016 年）。<br>攝影：David Stanley｜CC BY 2.0｜<a href="https://commons.wikimedia.org/wiki/File:Medhe_Miskih_in_Hithadhoo_(32208524263).jpg">Wikimedia Commons</a></figcaption></figure></div>
     <div class="tip"><b>備案：</b>下雨或太累，就騎到 Maradhoo 折返（來回約 14 km），剩下的路段改搭計程車去 Hithadhoo。</div>
   </div>
 
@@ -374,6 +389,7 @@ tr.reserve td{color:var(--coral);font-weight:700}
       <tr><td class="t">18:00</td><td>還單車、結清租金。</td><td class="how">對照 D2 拍的車況照片。</td></tr>
       <tr><td class="t">19:00</td><td>晚餐。</td><td class="how">最後一晚在 Addu，選前兩天最喜歡的店。</td></tr>
     </tbody></table>
+    <div class="photos one"><figure class="photo"><img src="images/manta.jpg" alt="馬爾地夫的鬼蝠魟（2003 年，不是在 Addu 拍的）。" loading="lazy" width="1024" height="769"><figcaption>馬爾地夫的鬼蝠魟（2003 年，不是在 Addu 拍的）。<br>攝影：TANAKA Juuyoh｜CC BY 2.0｜<a href="https://commons.wikimedia.org/wiki/File:Manta_alfredi_maldives.jpg">Wikimedia Commons</a></figcaption></figure></div>
     <div class="tip"><b>海上規則：</b>不踩、不摸珊瑚。不追鬼蝠魟、不摸海龜。只用珊瑚礁友善的防曬乳。</div>
   </div>
 
@@ -392,8 +408,9 @@ tr.reserve td{color:var(--coral);font-weight:700}
       <tr><td class="t">16:00</td><td>Hulhumalé 海灘散步、游泳。</td><td class="how">穿著要遮肩遮膝。比基尼只在指定區域。</td></tr>
       <tr><td class="t">18:00</td><td>看最後一次夕陽。</td><td class="how"></td></tr>
       <tr><td class="t">19:00</td><td>晚餐、買伴手禮。</td><td class="how">當地鮪魚製品是常見伴手禮。</td></tr>
-      <tr><td class="t">21:00</td><td>整理行李。填離境 IMUGA。</td><td class="how">問民宿明天送機時間。</td></tr>
+      <tr><td class="t">21:00</td><td>整理行李。</td><td class="how">問民宿明天送機時間。2024 年 8 月起，離境不用填 IMUGA。</td></tr>
     </tbody></table>
+    <div class="photos one"><figure class="photo"><img src="images/hulhumale_beach.jpg" alt="Hulhumalé 的人工海灘與游泳區（2023 年）。" loading="lazy" width="1024" height="768"><figcaption>Hulhumalé 的人工海灘與游泳區（2023 年）。<br>攝影：Saaremees｜CC BY-SA 4.0｜<a href="https://commons.wikimedia.org/wiki/File:Hulhumale_Beach-Maldives-Andres_Larin.jpg">Wikimedia Commons</a></figcaption></figure></div>
   </div>
 
   <!-- D6 -->
@@ -510,7 +527,7 @@ tr.reserve td{color:var(--coral);font-weight:700}
     <li><span>出發前 3 個月</span><span>訂國際機票。再訂馬列 ⇄ Gan 國內線，班次少，要早訂。先查這條航線目前有沒有直飛。</span></li>
     <li><span>出發前 2 個月</span><span>訂民宿：Hulhumalé 2 晚、Feydhoo 3 晚。用 Email 確認單車與接送。</span></li>
     <li><span>出發前 2 週</span><span>買旅平險（含海外醫療與水上活動）。寫信給潛水中心預約 D4 浮潛，問價格與集合地點。</span></li>
-    <li><span>出發前 96 小時內</span><span>上網填 IMUGA 入境申報，存 QR code。</span></li>
+    <li><span>出發前 96 小時內</span><span>在官方網站 imuga.immigration.gov.mv 填 IMUGA 入境申報，存 QR code。申報免費。要求付費的網站是假的。</span></li>
     <li><span>出發前 1 天</span><span>查天氣。問民宿 Link Road 施工狀況。換少量美金現鈔。</span></li>
   </ol>
 </section>
@@ -557,9 +574,29 @@ tr.reserve td{color:var(--coral);font-weight:700}
   </div>
 </section>
 
-<!-- ===== 10 來源 ===== -->
+<!-- ===== 11 聯絡與查證 ===== -->
 <section class="page">
-  <h2>11　資料來源</h2>
+  <h2>11　聯絡與查證</h2>
+  <p>電話前面的 +960 是馬爾地夫國碼。這些資料在 2026/11/9 查核。訂房或預約前，先用 Email 或 WhatsApp 再確認一次。</p>
+  <div class="tablewrap"><table class="stay">
+    <thead><tr><th>對象</th><th>用途</th><th>聯絡方式</th><th>查證來源</th></tr></thead>
+    <tbody>
+      <tr><td><b>Muladdu Inn</b><br>Feydhoo 民宿</td><td>D2–D4 住宿、單車、接機</td><td>+960 777 7288<br>bookings@muladdu.com<br><span class="note">官網 muladdu.com 查核時打不開</span></td><td><a href="https://www.tourism.gov.mv/en/registered/facilities/filter-t3-a17/6a621c133d206/tourguides.pdf">觀光部註冊名單</a>；<a href="https://amaldives.com/guesthouses/muladdu-inn">aMaldives</a></td></tr>
+      <tr><td><b>Lodger Guest House</b><br>Maradhoo-Feydhoo 民宿</td><td>備選住宿、單車</td><td>+960 761 6905<br>+960 689 1779</td><td><a href="https://www.tourism.gov.mv/en/registered/facilities/filter-t3-a17/6a621c133d206/tourguides.pdf">觀光部註冊名單</a>；<a href="https://ph.trip.com/hotels/addu-city-hotel-detail-49489878/lodger-guest-house">Trip.com</a></td></tr>
+      <tr><td><b>Express Inn</b><br>Hulhumalé 民宿</td><td>D1、D5 住宿、接機、寄放行李</td><td>+960 335 4044</td><td><a href="https://www.momondo.in/hotels/male/Express-Inn-at-Hulhumale.mhd2843768.ksp">Momondo</a>；<a href="https://www.wotif.com/Hulhumale-Hotels-Express-Inn.h17517637.Hotel-Information">Wotif</a></td></tr>
+      <tr><td><b>Aquaventure Dive Center</b><br>Maradhoo 潛水中心</td><td>D4 浮潛詢價、鬼蝠魟點</td><td>+960 797 4310（WhatsApp）<br>info@aquaventure-maldives.com<br><a href="https://www.aquaventure-maldives.com/">aquaventure-maldives.com</a></td><td><a href="https://www.aquaventure-maldives.com/faqs">官網 FAQ</a>；<a href="https://www.padi.com/dive-center/maldives/aquaventure-dive-center/">PADI</a></td></tr>
+      <tr><td><b>Diverland</b><br>Gan 潛水中心（Equator Village 內）</td><td>D4 備選</td><td>+960 777 1157<br><span class="note">舊資料，先確認</span></td><td><a href="https://diveplannerpro.com/dive-centers/mv/mv-diverland-gan">Dive Planner Pro</a></td></tr>
+      <tr><td><b>Maldivian</b><br>國內線航空</td><td>馬列 ⇄ Gan 訂票、改票</td><td><a href="https://maldivian.aero/">maldivian.aero</a><br>境內客服 1671<br>cc@iasl.aero</td><td><a href="https://maldivian.aero/flying-with-us/faq/mobile-and-online-booking.html">官網 FAQ</a></td></tr>
+      <tr><td><b>IMUGA</b><br>入境申報</td><td>抵達前 96 小時內填寫</td><td><a href="https://imuga.immigration.gov.mv/">imuga.immigration.gov.mv</a><br><span class="note">免費。小心收費的假網站。</span></td><td><a href="https://edition.mv/news/41158">移民署警告假網站</a></td></tr>
+      <tr><td><b>Addu 自然公園</b></td><td>開放時間、步道、獨木舟</td><td><a href="https://visitmaldives.com/en/places/addu-nature-park">Visit Maldives 官方介紹</a><br><span class="note">沒有查到官方電話</span></td><td>馬爾地夫觀光局</td></tr>
+      <tr><td><b>外交部</b></td><td>旅外急難</td><td>+886-800-085-095</td><td>外交部領事事務局</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ===== 12 來源 ===== -->
+<section class="page">
+  <h2>12　資料來源</h2>
   <ul class="src">
     <li>題目：CMD728 投影片 <i>20261109 GenAI.pptx</i> 第 11 張 Breakout Activities</li>
     <li><a href="https://www.discoveraddu.com/activities/biking/">Discover Addu – Biking</a>；<a href="https://discoveraddu.com/food/restaurants-cafes">Discover Addu – Restaurants &amp; Cafes</a></li>
@@ -573,8 +610,11 @@ tr.reserve td{color:var(--coral);font-weight:700}
     <li><a href="https://travel.padi.com/diving-in/maldives/addu-atoll">PADI – Addu 潛點</a>；<a href="https://zubludiving.com/resort/equator-village">Equator Village 潛水中心</a></li>
     <li><a href="https://amaldives.com/guesthouses/rekidhiye-inn">aMaldives – Addu 民宿房價</a>；<a href="https://amaldives.com/blog/guesthouse-lodger-guest-house">Lodger Guest House</a></li>
     <li><a href="https://travelocity.com/Maldives-Guest-Houses.d109-aaGuestHouses.Travel-Guide-Accommodation">Travelocity – Hulhumalé 民宿</a></li>
+    <li><a href="https://letsgomaldives.com/news/important-update-no-arrival-declaration-required-for-maldives-travelers/">離境 IMUGA 自 2024/8/15 取消</a>；<a href="https://blog.wego.com/imuga/">Wego – IMUGA 2026</a></li>
     <li><a href="https://maldivian.aero/flying-with-us/before-you-fly/baggage-policy.html">Maldivian – Baggage Policy</a>；<a href="https://amaldives.com/blog/maldives-domestic-flights-guide-2026">aMaldives – 國內線指南</a></li>
   </ul>
+  <h3 style="margin-top:16px">照片來源（Wikimedia Commons，依授權標示作者）</h3>
+  <ul class="src"><li>Gan 端的海堤公路入口：David Stanley，CC BY 2.0，<a href="https://commons.wikimedia.org/wiki/File:Gan_Causeway_(32966136766).jpg">Commons</a></li><li>Gan 島的英國戰爭紀念碑，旁邊有二戰時期的砲：David Stanley，CC BY 2.0，<a href="https://commons.wikimedia.org/wiki/File:British_War_Memorial_(32169693594).jpg">Commons</a></li><li>Addu 自然公園：David Stanley，CC BY 2.0，<a href="https://commons.wikimedia.org/wiki/File:Eydhigali_Kilhi_and_Koattey_Natural_Protected_Area_(33028363835).jpg">Commons</a></li><li>Hithadhoo 的 Medhe Miskih 古清真寺墓園，裡面有許多古老墓碑：David Stanley，CC BY 2.0，<a href="https://commons.wikimedia.org/wiki/File:Medhe_Miskih_in_Hithadhoo_(32208524263).jpg">Commons</a></li><li>自然公園北端未開發的海灘。岸邊是礁岩與碎珊瑚：David Stanley，CC BY 2.0，<a href="https://commons.wikimedia.org/wiki/File:Addu_Atoll_Beach_(32220015923).jpg">Commons</a></li><li>Gan 國際機場正門：Unilandofma，CC BY-SA 4.0，<a href="https://commons.wikimedia.org/wiki/File:Front_view_of_Gan_International_Airport.jpg">Commons</a></li><li>在 Gan 機場降落的國內線螺旋槳飛機：DD (Flickr, Malé)，CC BY-SA 2.0，<a href="https://commons.wikimedia.org/wiki/File:8Q-IAQ_(638190811).jpg">Commons</a></li><li>Gan 的日出：DD (Flickr, Malé)，CC BY-SA 2.0，<a href="https://commons.wikimedia.org/wiki/File:Sunrise_@_Gan_(844431008).jpg">Commons</a></li><li>馬爾地夫的鬼蝠魟：TANAKA Juuyoh，CC BY 2.0，<a href="https://commons.wikimedia.org/wiki/File:Manta_alfredi_maldives.jpg">Commons</a></li><li>Hulhumalé 的人工海灘與游泳區：Saaremees，CC BY-SA 4.0，<a href="https://commons.wikimedia.org/wiki/File:Hulhumale_Beach-Maldives-Andres_Larin.jpg">Commons</a></li><li>從空中看 Velana 機場島：Simon_sees，CC BY 2.0，<a href="https://commons.wikimedia.org/wiki/File:Velana_International_Airport,_Male,_Maldives.jpg">Commons</a></li></ul>
 </section>
 
 </div>
